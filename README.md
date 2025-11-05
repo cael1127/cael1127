@@ -1,4 +1,4 @@
-# 💫 About Me:
+# About Me:
 Hi, I’m Cael Findley (aka cael1127)<br>I’m a computer science enthusiast with a soft spot for robotics and deep-learning from scratch.<br>My current focus: building full-stack AI tools in Java and Python — everything from a BERT-style model written in base Java to a GPT-like assistant powered by custom tooling and datasets.<br>I’m also passionate about making things practical: reading U.S. history, studying economics, and turning real problems into code.<br>When I’m not coding I’m probably working on my next big idea, building study-help tools, or prepping for the next exam.<br>Let’s build something together or just chat about tech, AI, or how history meets code.
 
 
