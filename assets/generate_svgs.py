@@ -44,81 +44,53 @@ THEMES = {
 }
 
 
-def banner_defs(t: dict, w: int = 1280, h: int = 420) -> str:
-    return f'''  <defs>
-    <linearGradient id="ground" x1="0%" y1="0%" x2="100%" y2="100%">
+def header_svg(theme: str) -> str:
+    """Fully static editorial banner — no SMIL animations."""
+    t = THEMES[theme]
+    # Solid sage panel + typography + CF monogram. Soft blend into GitHub canvas.
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 440" width="1280" height="440" role="img" aria-labelledby="title desc">
+  <title id="title">Cael Findley — Software Developer</title>
+  <desc id="desc">Static sage/emerald editorial profile banner ({theme})</desc>
+  <defs>
+    <linearGradient id="wash" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="{t['bg0']}"/>
-      <stop offset="55%" stop-color="{t['bg1']}"/>
+      <stop offset="40%" stop-color="{t['bg1']}"/>
       <stop offset="100%" stop-color="{t['bg0']}"/>
     </linearGradient>
-    <radialGradient id="glowL" cx="18%" cy="50%" r="45%">
-      <stop offset="0%" stop-color="{t['glow']}" stop-opacity="0.7"/>
-      <stop offset="100%" stop-color="{t['bg0']}" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="glowR" cx="86%" cy="42%" r="36%">
-      <stop offset="0%" stop-color="{t['deep']}" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="{t['bg0']}" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="fadeY" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="{t['deep']}" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="{t['glow']}" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="white" stop-opacity="0"/>
-      <stop offset="6%" stop-color="white" stop-opacity="1"/>
-      <stop offset="88%" stop-color="white" stop-opacity="1"/>
+      <stop offset="5%" stop-color="white" stop-opacity="1"/>
+      <stop offset="90%" stop-color="white" stop-opacity="1"/>
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </linearGradient>
-    <mask id="pageBlend" maskUnits="userSpaceOnUse" x="0" y="0" width="{w}" height="{h}">
-      <rect width="{w}" height="{h}" fill="url(#fadeY)"/>
+    <mask id="blend" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="440">
+      <rect width="1280" height="440" fill="url(#edge)"/>
     </mask>
   </defs>
-'''
 
+  <g mask="url(#blend)">
+    <rect width="1280" height="440" fill="url(#wash)"/>
 
-def quiet_accent(t: dict) -> str:
-    """Static emerald mark — no looping motion."""
-    return f'''  <g fill="none" transform="translate(1040,210)" opacity="0.55">
-    <circle cx="0" cy="0" r="108" stroke="{t['accent2']}" stroke-width="1.2" opacity="0.35"/>
-    <circle cx="0" cy="0" r="68" stroke="{t['accent']}" stroke-width="1.4" opacity="0.45"/>
-    <circle cx="0" cy="0" r="9" fill="{t['accent']}" opacity="0.85"/>
+    <!-- Left brand column -->
+    <rect x="0" y="0" width="14" height="440" fill="{t['accent']}"/>
+    <rect x="14" y="0" width="220" height="440" fill="url(#panel)"/>
+
+    <!-- Monogram block -->
+    <rect x="48" y="150" width="152" height="152" rx="8" fill="{t['accent']}" opacity="0.95"/>
+    <text x="124" y="252" text-anchor="middle" fill="{t['bg0']}" font-family="{FONT_UI}" font-size="72" font-weight="700" letter-spacing="-2">CF</text>
+
+    <!-- Primary type -->
+    <text x="300" y="150" fill="{t['accent2']}" font-family="{FONT_MONO}" font-size="20" font-weight="600" letter-spacing="5">SOFTWARE DEVELOPER</text>
+    <text x="300" y="240" fill="{t['ink']}" font-family="{FONT_UI}" font-size="96" font-weight="400" letter-spacing="-2">Cael Findley</text>
+    <rect x="300" y="268" width="280" height="5" rx="2" fill="{t['accent']}"/>
+    <text x="300" y="320" fill="{t['muted']}" font-family="{FONT_SANS}" font-size="26">AI systems · full-stack products · systems</text>
+    <text x="300" y="368" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="18" letter-spacing="1.5">Texas A&amp;M CS  ·  @cael1127</text>
   </g>
-'''
-
-
-def hero_text(t: dict) -> str:
-    # One-shot fade-in only — no looping animation on the banner
-    return f'''  <g>
-    <text x="80" y="118" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="18" font-weight="600" letter-spacing="4" opacity="0">
-      SOFTWARE DEVELOPER
-      <animate attributeName="opacity" from="0" to="1" begin="0.1s" dur="0.6s" fill="freeze"/>
-    </text>
-    <text x="80" y="210" fill="{t['ink']}" font-family="{FONT_UI}" font-size="92" font-weight="400" letter-spacing="-1.5" opacity="0">
-      Cael Findley
-      <animate attributeName="opacity" from="0" to="1" begin="0.25s" dur="0.7s" fill="freeze"/>
-    </text>
-    <text x="80" y="268" fill="{t['muted']}" font-family="{FONT_SANS}" font-size="24" font-weight="400" opacity="0">
-      AI systems · full-stack products · systems programming
-      <animate attributeName="opacity" from="0" to="1" begin="0.55s" dur="0.6s" fill="freeze"/>
-    </text>
-    <text x="80" y="310" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="16" letter-spacing="1.5" opacity="0">
-      Texas A&amp;M CS  ·  @cael1127
-      <animate attributeName="opacity" from="0" to="1" begin="0.75s" dur="0.5s" fill="freeze"/>
-    </text>
-    <rect x="80" y="336" width="220" height="4" rx="2" fill="{t['accent']}" opacity="0">
-      <animate attributeName="opacity" from="0" to="1" begin="0.95s" dur="0.5s" fill="freeze"/>
-    </rect>
-  </g>
-'''
-
-
-def header_svg(theme: str) -> str:
-    t = THEMES[theme]
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" height="420" role="img" aria-labelledby="title desc">
-  <title id="title">Cael Findley — Software Developer</title>
-  <desc id="desc">Clean sage/emerald profile banner with large typography ({theme})</desc>
-{banner_defs(t, 1280, 420)}  <g mask="url(#pageBlend)">
-  <rect width="1280" height="420" fill="url(#ground)"/>
-  <rect width="1280" height="420" fill="url(#glowL)"/>
-  <rect width="1280" height="420" fill="url(#glowR)"/>
-{quiet_accent(t)}{hero_text(t)}  </g>
 </svg>
 '''
 

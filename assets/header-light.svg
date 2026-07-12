@@ -1,60 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" height="420" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 440" width="1280" height="440" role="img" aria-labelledby="title desc">
   <title id="title">Cael Findley — Software Developer</title>
-  <desc id="desc">Clean sage/emerald profile banner with large typography (light)</desc>
+  <desc id="desc">Static sage/emerald editorial profile banner (light)</desc>
   <defs>
-    <linearGradient id="ground" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="wash" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="55%" stop-color="#f5f7f3"/>
+      <stop offset="40%" stop-color="#f5f7f3"/>
       <stop offset="100%" stop-color="#ffffff"/>
     </linearGradient>
-    <radialGradient id="glowL" cx="18%" cy="50%" r="45%">
-      <stop offset="0%" stop-color="#d8e8d8" stop-opacity="0.7"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="glowR" cx="86%" cy="42%" r="36%">
-      <stop offset="0%" stop-color="#065f46" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="fadeY" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#065f46" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#d8e8d8" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="white" stop-opacity="0"/>
-      <stop offset="6%" stop-color="white" stop-opacity="1"/>
-      <stop offset="88%" stop-color="white" stop-opacity="1"/>
+      <stop offset="5%" stop-color="white" stop-opacity="1"/>
+      <stop offset="90%" stop-color="white" stop-opacity="1"/>
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </linearGradient>
-    <mask id="pageBlend" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="420">
-      <rect width="1280" height="420" fill="url(#fadeY)"/>
+    <mask id="blend" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="440">
+      <rect width="1280" height="440" fill="url(#edge)"/>
     </mask>
   </defs>
-  <g mask="url(#pageBlend)">
-  <rect width="1280" height="420" fill="url(#ground)"/>
-  <rect width="1280" height="420" fill="url(#glowL)"/>
-  <rect width="1280" height="420" fill="url(#glowR)"/>
-  <g fill="none" transform="translate(1040,210)" opacity="0.55">
-    <circle cx="0" cy="0" r="108" stroke="#52796f" stroke-width="1.2" opacity="0.35"/>
-    <circle cx="0" cy="0" r="68" stroke="#047857" stroke-width="1.4" opacity="0.45"/>
-    <circle cx="0" cy="0" r="9" fill="#047857" opacity="0.85"/>
-  </g>
-  <g>
-    <text x="80" y="118" fill="#047857" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="600" letter-spacing="4" opacity="0">
-      SOFTWARE DEVELOPER
-      <animate attributeName="opacity" from="0" to="1" begin="0.1s" dur="0.6s" fill="freeze"/>
-    </text>
-    <text x="80" y="210" fill="#14201a" font-family="Georgia, 'Times New Roman', Times, serif" font-size="92" font-weight="400" letter-spacing="-1.5" opacity="0">
-      Cael Findley
-      <animate attributeName="opacity" from="0" to="1" begin="0.25s" dur="0.7s" fill="freeze"/>
-    </text>
-    <text x="80" y="268" fill="#4a5c50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" font-weight="400" opacity="0">
-      AI systems · full-stack products · systems programming
-      <animate attributeName="opacity" from="0" to="1" begin="0.55s" dur="0.6s" fill="freeze"/>
-    </text>
-    <text x="80" y="310" fill="#6b7c70" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16" letter-spacing="1.5" opacity="0">
-      Texas A&amp;M CS  ·  @cael1127
-      <animate attributeName="opacity" from="0" to="1" begin="0.75s" dur="0.5s" fill="freeze"/>
-    </text>
-    <rect x="80" y="336" width="220" height="4" rx="2" fill="#047857" opacity="0">
-      <animate attributeName="opacity" from="0" to="1" begin="0.95s" dur="0.5s" fill="freeze"/>
-    </rect>
-  </g>
+
+  <g mask="url(#blend)">
+    <rect width="1280" height="440" fill="url(#wash)"/>
+
+    <!-- Left brand column -->
+    <rect x="0" y="0" width="14" height="440" fill="#047857"/>
+    <rect x="14" y="0" width="220" height="440" fill="url(#panel)"/>
+
+    <!-- Monogram block -->
+    <rect x="48" y="150" width="152" height="152" rx="8" fill="#047857" opacity="0.95"/>
+    <text x="124" y="252" text-anchor="middle" fill="#ffffff" font-family="Georgia, 'Times New Roman', Times, serif" font-size="72" font-weight="700" letter-spacing="-2">CF</text>
+
+    <!-- Primary type -->
+    <text x="300" y="150" fill="#52796f" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="600" letter-spacing="5">SOFTWARE DEVELOPER</text>
+    <text x="300" y="240" fill="#14201a" font-family="Georgia, 'Times New Roman', Times, serif" font-size="96" font-weight="400" letter-spacing="-2">Cael Findley</text>
+    <rect x="300" y="268" width="280" height="5" rx="2" fill="#047857"/>
+    <text x="300" y="320" fill="#4a5c50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26">AI systems · full-stack products · systems</text>
+    <text x="300" y="368" fill="#6b7c70" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" letter-spacing="1.5">Texas A&amp;M CS  ·  @cael1127</text>
   </g>
 </svg>
