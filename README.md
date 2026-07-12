@@ -2,17 +2,17 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/header-dark.svg?v=sage3">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/header-light.svg?v=sage3">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/header-light.svg?v=sage3" alt="Cael Findley — Software Developer" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/header-dark.svg?v=sage4">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/header-light.svg?v=sage4">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/header-light.svg?v=sage4" alt="Cael Findley — Software Developer" width="100%">
   </picture>
 </p>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-dark.svg?v=sage3">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-light.svg?v=sage3">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-light.svg?v=sage3" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-dark.svg?v=sage4">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-light.svg?v=sage4">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-light.svg?v=sage4" alt="" width="100%">
   </picture>
 </p>
 
@@ -37,9 +37,9 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-dark.svg?v=sage3">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-light.svg?v=sage3">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-light.svg?v=sage3" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-dark.svg?v=sage4">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-light.svg?v=sage4">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-light.svg?v=sage4" alt="" width="100%">
   </picture>
 </p>
 
@@ -53,9 +53,9 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-dark.svg?v=sage3">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-light.svg?v=sage3">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-light.svg?v=sage3" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-dark.svg?v=sage4">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-light.svg?v=sage4">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-light.svg?v=sage4" alt="" width="100%">
   </picture>
 </p>
 
@@ -78,9 +78,9 @@ Python · transformers · RAG
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-dark.svg?v=sage3">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-light.svg?v=sage3">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-light.svg?v=sage3" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-dark.svg?v=sage4">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-light.svg?v=sage4">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-light.svg?v=sage4" alt="" width="100%">
   </picture>
 </p>
 
@@ -103,9 +103,9 @@ Python · transformers · RAG
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-dark.svg?v=sage3">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-light.svg?v=sage3">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-light.svg?v=sage3" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-dark.svg?v=sage4">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-light.svg?v=sage4">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-light.svg?v=sage4" alt="" width="100%">
   </picture>
 </p>
 
@@ -122,9 +122,9 @@ School and academic context lives on **[@caelf-hub](https://github.com/caelf-hub
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-dark.svg?v=sage3">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-light.svg?v=sage3">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-light.svg?v=sage3" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-dark.svg?v=sage4">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-light.svg?v=sage4">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-light.svg?v=sage4" alt="" width="100%">
   </picture>
 </p>
 
@@ -160,8 +160,8 @@ School and academic context lives on **[@caelf-hub](https://github.com/caelf-hub
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-dark.svg?v=sage3">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-light.svg?v=sage3">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-light.svg?v=sage3" alt="Footer" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-dark.svg?v=sage4">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-light.svg?v=sage4">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-light.svg?v=sage4" alt="Footer" width="100%">
   </picture>
 </p>

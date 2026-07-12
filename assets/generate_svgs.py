@@ -52,14 +52,12 @@ def banner_defs(t: dict, w: int = 1280, h: int = 420) -> str:
       <stop offset="100%" stop-color="{t['bg0']}"/>
     </linearGradient>
     <radialGradient id="glowL" cx="18%" cy="50%" r="45%">
-      <stop offset="0%" stop-color="{t['glow']}" stop-opacity="0.75"/>
+      <stop offset="0%" stop-color="{t['glow']}" stop-opacity="0.7"/>
       <stop offset="100%" stop-color="{t['bg0']}" stop-opacity="0"/>
-      <animate attributeName="opacity" values="0.7;1;0.7" dur="10s" repeatCount="indefinite"/>
     </radialGradient>
-    <radialGradient id="glowR" cx="88%" cy="40%" r="38%">
-      <stop offset="0%" stop-color="{t['deep']}" stop-opacity="0.5"/>
+    <radialGradient id="glowR" cx="86%" cy="42%" r="36%">
+      <stop offset="0%" stop-color="{t['deep']}" stop-opacity="0.4"/>
       <stop offset="100%" stop-color="{t['bg0']}" stop-opacity="0"/>
-      <animate attributeName="cx" values="88%;84%;90%;88%" dur="18s" repeatCount="indefinite"/>
     </radialGradient>
     <linearGradient id="fadeY" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="white" stop-opacity="0"/>
@@ -75,46 +73,36 @@ def banner_defs(t: dict, w: int = 1280, h: int = 420) -> str:
 
 
 def quiet_accent(t: dict) -> str:
-    """One calm emerald ring on the right — motion without clutter."""
-    return f'''  <g fill="none" transform="translate(1040,210)">
-    <circle cx="0" cy="0" r="110" stroke="{t['accent2']}" stroke-width="1.25" opacity="0.28">
-      <animate attributeName="r" values="100;118;100" dur="8s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.18;0.35;0.18" dur="8s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="0" cy="0" r="70" stroke="{t['accent']}" stroke-width="1.5" opacity="0.4">
-      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="36s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="70" cy="0" r="5" fill="{t['accent']}" opacity="0.85">
-      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="36s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="0" cy="0" r="10" fill="{t['accent']}" opacity="0.9">
-      <animate attributeName="opacity" values="0.55;1;0.55" dur="3s" repeatCount="indefinite"/>
-    </circle>
+    """Static emerald mark — no looping motion."""
+    return f'''  <g fill="none" transform="translate(1040,210)" opacity="0.55">
+    <circle cx="0" cy="0" r="108" stroke="{t['accent2']}" stroke-width="1.2" opacity="0.35"/>
+    <circle cx="0" cy="0" r="68" stroke="{t['accent']}" stroke-width="1.4" opacity="0.45"/>
+    <circle cx="0" cy="0" r="9" fill="{t['accent']}" opacity="0.85"/>
   </g>
 '''
 
 
 def hero_text(t: dict) -> str:
+    # One-shot fade-in only — no looping animation on the banner
     return f'''  <g>
     <text x="80" y="118" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="18" font-weight="600" letter-spacing="4" opacity="0">
       SOFTWARE DEVELOPER
-      <animate attributeName="opacity" from="0" to="1" begin="0.1s" dur="0.5s" fill="freeze"/>
+      <animate attributeName="opacity" from="0" to="1" begin="0.1s" dur="0.6s" fill="freeze"/>
     </text>
     <text x="80" y="210" fill="{t['ink']}" font-family="{FONT_UI}" font-size="92" font-weight="400" letter-spacing="-1.5" opacity="0">
       Cael Findley
-      <animate attributeName="opacity" from="0" to="1" begin="0.35s" dur="0.75s" fill="freeze"/>
-      <animateTransform attributeName="transform" type="translate" values="0,18; 0,0" begin="0.35s" dur="0.75s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <animate attributeName="opacity" from="0" to="1" begin="0.25s" dur="0.7s" fill="freeze"/>
     </text>
     <text x="80" y="268" fill="{t['muted']}" font-family="{FONT_SANS}" font-size="24" font-weight="400" opacity="0">
       AI systems · full-stack products · systems programming
-      <animate attributeName="opacity" from="0" to="1" begin="1.0s" dur="0.6s" fill="freeze"/>
+      <animate attributeName="opacity" from="0" to="1" begin="0.55s" dur="0.6s" fill="freeze"/>
     </text>
     <text x="80" y="310" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="16" letter-spacing="1.5" opacity="0">
       Texas A&amp;M CS  ·  @cael1127
-      <animate attributeName="opacity" from="0" to="1" begin="1.35s" dur="0.5s" fill="freeze"/>
+      <animate attributeName="opacity" from="0" to="1" begin="0.75s" dur="0.5s" fill="freeze"/>
     </text>
-    <rect x="80" y="336" width="0" height="4" rx="2" fill="{t['accent']}">
-      <animate attributeName="width" from="0" to="220" begin="1.7s" dur="0.9s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1"/>
+    <rect x="80" y="336" width="220" height="4" rx="2" fill="{t['accent']}" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" begin="0.95s" dur="0.5s" fill="freeze"/>
     </rect>
   </g>
 '''
