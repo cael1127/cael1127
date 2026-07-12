@@ -2,9 +2,9 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/banner-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/banner-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/banner-light.svg" alt="Cael Findley — Software Developer" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/session-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/session-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/session-light.svg" alt="Cael Findley — Software Developer" width="100%">
   </picture>
 </p>
 

@@ -45,51 +45,96 @@ THEMES = {
 
 
 def header_svg(theme: str) -> str:
-    """Fully static editorial banner — no SMIL animations."""
+    """
+    Theme: a live build session.
+    Left = identity (always readable). Right = terminal that types a short session log.
+    Story: open shell → whoami → focus → location → ready prompt.
+    """
     t = THEMES[theme]
-    # Solid sage panel + typography + CF monogram. Soft blend into GitHub canvas.
+    if theme == "dark":
+        term_bg, term_chrome, term_border = "#0c1210", "#152019", "#2d4a38"
+        prompt, cmd, out, muted = "#86efac", "#e8f0e8", "#a3b18a", "#6b7c70"
+    else:
+        term_bg, term_chrome, term_border = "#f3f7f2", "#e5ede3", "#94a894"
+        prompt, cmd, out, muted = "#047857", "#14201a", "#52796f", "#6b7c70"
+
+    clips = []
+    lines = []
+    # (clip_id, y, begin, dur, width, text, fill)
+    script = [
+        ("c1", 150, "0.5s", "0.75s", 200, "$ whoami", prompt),
+        ("c2", 180, "1.4s", "0.85s", 260, "Cael Findley", out),
+        ("c3", 220, "2.5s", "0.9s", 290, "$ cat ~/focus.md", prompt),
+        ("c4", 250, "3.6s", "1.1s", 400, "AI systems · full-stack · systems", out),
+        ("c5", 290, "5.0s", "0.65s", 140, "$ pwd", prompt),
+        ("c6", 320, "5.8s", "0.95s", 320, "~/texas-am/computer-science", out),
+        ("c7", 360, "7.0s", "0.4s", 40, "$", prompt),
+    ]
+    for cid, y, begin, dur, width, text, fill in script:
+        clips.append(f'''    <clipPath id="{cid}">
+      <rect x="742" y="{y - 20}" width="0" height="26">
+        <animate attributeName="width" from="0" to="{width}" begin="{begin}" dur="{dur}" fill="freeze"/>
+      </rect>
+    </clipPath>''')
+        safe = text.replace("&", "&amp;")
+        lines.append(f'''    <text x="754" y="{y}" fill="{fill}" font-family="{FONT_MONO}" font-size="15" clip-path="url(#{cid})">{safe}</text>''')
+
     return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 440" width="1280" height="440" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 460" width="1280" height="460" role="img" aria-labelledby="title desc">
   <title id="title">Cael Findley — Software Developer</title>
-  <desc id="desc">Static sage/emerald editorial profile banner ({theme})</desc>
+  <desc id="desc">Build-session banner: identity plus a terminal that types whoami, focus, and location ({theme})</desc>
   <defs>
     <linearGradient id="wash" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="{t['bg0']}"/>
-      <stop offset="40%" stop-color="{t['bg1']}"/>
+      <stop offset="50%" stop-color="{t['bg1']}"/>
       <stop offset="100%" stop-color="{t['bg0']}"/>
-    </linearGradient>
-    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="{t['deep']}" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="{t['glow']}" stop-opacity="0.15"/>
     </linearGradient>
     <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="white" stop-opacity="0"/>
-      <stop offset="5%" stop-color="white" stop-opacity="1"/>
-      <stop offset="90%" stop-color="white" stop-opacity="1"/>
+      <stop offset="4%" stop-color="white" stop-opacity="1"/>
+      <stop offset="92%" stop-color="white" stop-opacity="1"/>
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </linearGradient>
-    <mask id="blend" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="440">
-      <rect width="1280" height="440" fill="url(#edge)"/>
+    <mask id="blend" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="460">
+      <rect width="1280" height="460" fill="url(#edge)"/>
     </mask>
+{chr(10).join(clips)}
   </defs>
 
   <g mask="url(#blend)">
-    <rect width="1280" height="440" fill="url(#wash)"/>
+    <rect width="1280" height="460" fill="url(#wash)"/>
 
-    <!-- Left brand column -->
-    <rect x="0" y="0" width="14" height="440" fill="{t['accent']}"/>
-    <rect x="14" y="0" width="220" height="440" fill="url(#panel)"/>
+    <!-- Identity -->
+    <rect x="0" y="0" width="10" height="460" fill="{t['accent']}"/>
+    <text x="56" y="128" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="16" font-weight="600" letter-spacing="4">SOFTWARE DEVELOPER</text>
+    <text x="56" y="220" fill="{t['ink']}" font-family="{FONT_UI}" font-size="78" font-weight="400" letter-spacing="-1.5">Cael Findley</text>
+    <rect x="56" y="246" width="200" height="4" rx="2" fill="{t['accent']}"/>
+    <text x="56" y="296" fill="{t['muted']}" font-family="{FONT_SANS}" font-size="22">Building AI systems and full-stack products</text>
+    <text x="56" y="336" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="15" letter-spacing="1.2">Texas A&amp;M CS  ·  @cael1127</text>
 
-    <!-- Monogram block -->
-    <rect x="48" y="150" width="152" height="152" rx="8" fill="{t['accent']}" opacity="0.95"/>
-    <text x="124" y="252" text-anchor="middle" fill="{t['bg0']}" font-family="{FONT_UI}" font-size="72" font-weight="700" letter-spacing="-2">CF</text>
+    <g transform="translate(56,372)">
+      <rect width="168" height="32" rx="16" fill="{t['glow']}" stroke="{t['accent2']}" stroke-width="1"/>
+      <circle cx="18" cy="16" r="5" fill="{t['accent']}">
+        <animate attributeName="opacity" values="1;0.35;1" dur="1.8s" repeatCount="indefinite"/>
+      </circle>
+      <text x="34" y="21" fill="{t['ink']}" font-family="{FONT_MONO}" font-size="12" font-weight="600">build session</text>
+    </g>
 
-    <!-- Primary type -->
-    <text x="300" y="150" fill="{t['accent2']}" font-family="{FONT_MONO}" font-size="20" font-weight="600" letter-spacing="5">SOFTWARE DEVELOPER</text>
-    <text x="300" y="240" fill="{t['ink']}" font-family="{FONT_UI}" font-size="96" font-weight="400" letter-spacing="-2">Cael Findley</text>
-    <rect x="300" y="268" width="280" height="5" rx="2" fill="{t['accent']}"/>
-    <text x="300" y="320" fill="{t['muted']}" font-family="{FONT_SANS}" font-size="26">AI systems · full-stack products · systems</text>
-    <text x="300" y="368" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="18" letter-spacing="1.5">Texas A&amp;M CS  ·  @cael1127</text>
+    <!-- Terminal -->
+    <rect x="720" y="72" width="500" height="320" rx="12" fill="{term_bg}" stroke="{term_border}" stroke-width="1.5"/>
+    <path d="M720,84 a12,12 0 0 1 12,-12 h476 a12,12 0 0 1 12,12 v20 H720 Z" fill="{term_chrome}"/>
+    <circle cx="744" cy="92" r="5" fill="#ef4444" opacity="0.8"/>
+    <circle cx="762" cy="92" r="5" fill="#eab308" opacity="0.8"/>
+    <circle cx="780" cy="92" r="5" fill="#22c55e" opacity="0.8"/>
+    <text x="970" y="97" text-anchor="middle" fill="{muted}" font-family="{FONT_MONO}" font-size="12">cael@findley — zsh</text>
+
+{chr(10).join(lines)}
+
+    <!-- Caret after final $ -->
+    <rect x="772" y="346" width="9" height="17" fill="{prompt}" opacity="0">
+      <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.95;1" dur="7.5s" fill="freeze"/>
+      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.48;0.5;1" dur="1.05s" begin="7.5s" repeatCount="indefinite"/>
+    </rect>
   </g>
 </svg>
 '''
@@ -265,15 +310,17 @@ def main():
     accents_dir = OUT / "accents"
     accents_dir.mkdir(exist_ok=True)
     for theme in ("dark", "light"):
-        (OUT / f"header-{theme}.svg").write_text(header_svg(theme), encoding="utf-8")
-        (OUT / f"banner-{theme}.svg").write_text(header_svg(theme), encoding="utf-8")
+        svg = header_svg(theme)
+        (OUT / f"header-{theme}.svg").write_text(svg, encoding="utf-8")
+        (OUT / f"banner-{theme}.svg").write_text(svg, encoding="utf-8")
+        (OUT / f"session-{theme}.svg").write_text(svg, encoding="utf-8")
         (OUT / f"footer-{theme}.svg").write_text(footer_svg(theme), encoding="utf-8")
         (OUT / f"bridge-{theme}.svg").write_text(accent_bridge(theme), encoding="utf-8")
         for name, fn in ACCENTS.items():
             path = accents_dir / f"{name}-{theme}.svg"
             path.write_text(fn(theme), encoding="utf-8")
             print(f"{path.name}: ok")
-        print(f"header-{theme}: {len(header_svg(theme))} chars")
+        print(f"session-{theme}: {len(svg)} chars")
 
 
 if __name__ == "__main__":
