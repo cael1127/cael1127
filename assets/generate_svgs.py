@@ -1,739 +1,378 @@
 #!/usr/bin/env python3
-"""Generate premium SMIL SVG assets for cael1127 personal profile (ink/steel)."""
+"""Generate distinct SMIL SVG assets for cael1127 — aurora/orbit editorial (not school circuit)."""
 
 from pathlib import Path
+from math import cos, sin, pi
 
 OUT = Path(__file__).resolve().parent
-FONT_UI = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+FONT_UI = "Georgia, 'Times New Roman', Times, serif"
+FONT_SANS = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
 FONT_MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
 
-# Ink / steel personal brand — bg0 matched to GitHub canvas for soft fades
+# Aurora editorial — teal + slate (distinct from Aggie maroon and prior steel clone)
 THEMES = {
     "dark": {
         "bg0": "#0d1117",
-        "bg1": "#12171f",
-        "grid": "#2a3544",
-        "grid_faint": "#1a222e",
-        "ink": "#e6edf3",
-        "muted": "#9da7b3",
-        "faint": "#6e7a88",
-        "accent": "#6ea8fe",
-        "accent_soft": "#1e3a5f",
-        "circuit": "#3d5a80",
-        "node": "#a8c8ff",
-        "stream": "#4a6fa5",
-        "mesh_a": "#152033",
-        "mesh_b": "#101820",
-        "mesh_c": "#182838",
-        "particle": "#b8d0f0",
-        "cursor": "#6ea8fe",
-        "vignette": "#0d1117",
-        "rail": "#2463eb",
-        "white": "#ffffff",
+        "bg1": "#0f1419",
+        "ink": "#f0f4f8",
+        "muted": "#9fb0c0",
+        "faint": "#6b7c8c",
+        "accent": "#5eead4",
+        "accent2": "#67e8f9",
+        "glow": "#134e4a",
+        "orbit": "#2dd4bf",
+        "wave": "#5eead4",
+        "star": "#ccfbf1",
+        "line": "#1e3a3a",
+        "soft": "#164e63",
     },
     "light": {
         "bg0": "#ffffff",
-        "bg1": "#f4f7fb",
-        "grid": "#c5d0de",
-        "grid_faint": "#e4eaf2",
+        "bg1": "#f7fafb",
         "ink": "#0f172a",
         "muted": "#475569",
         "faint": "#64748b",
-        "accent": "#2463eb",
-        "accent_soft": "#93c5fd",
-        "circuit": "#94a3b8",
-        "node": "#2463eb",
-        "stream": "#64748b",
-        "mesh_a": "#e8f0fe",
-        "mesh_b": "#f0f5fb",
-        "mesh_c": "#e2ebf7",
-        "particle": "#2463eb",
-        "cursor": "#2463eb",
-        "vignette": "#ffffff",
-        "rail": "#2463eb",
-        "white": "#ffffff",
+        "accent": "#0f766e",
+        "accent2": "#0891b2",
+        "glow": "#ccfbf1",
+        "orbit": "#0d9488",
+        "wave": "#14b8a6",
+        "star": "#0f766e",
+        "line": "#cfe8e4",
+        "soft": "#99f6e4",
     },
 }
 
-def build_particles(count: int = 96):
-    """Deterministic particle field (x, y, r, opacity, dur, dx, dy, delay)."""
-    out = []
-    for i in range(count):
-        x = (37 * i * i + 91 * i + 17) % 1240 + 20
-        y = (53 * i + 29 * (i % 7) + 11) % 340 + 10
-        r = 0.6 + (i % 5) * 0.18
-        op = 0.12 + (i % 6) * 0.04
-        dur = 14 + (i % 12)
-        dx = ((i * 13) % 70) - 35
-        dy = ((i * 17) % 50) - 25
-        delay = (i % 20) * 0.18
-        out.append((x, y, r, op, dur, dx, dy, delay))
-    return out
 
-
-PARTICLES = build_particles(140)
-
-# Circuit nodes: (cx, cy, r)
-NODES = [
-    (980, 80, 3.5),
-    (1040, 110, 2.5),
-    (1100, 85, 3.0),
-    (1145, 140, 2.2),
-    (1065, 175, 2.8),
-    (1180, 200, 2.4),
-    (1005, 230, 2.6),
-    (1120, 250, 3.2),
-    (960, 280, 2.0),
-    (1085, 300, 2.5),
-    (1025, 55, 2.0),
-    (1165, 95, 2.3),
-    (1210, 160, 2.1),
-    (990, 190, 2.4),
-    (1155, 220, 2.0),
-    (1045, 270, 2.2),
-    (1195, 280, 2.6),
-    (945, 150, 1.8),
-]
-
-# Circuit path segments (polyline points strings)
-TRACES = [
-    "980,80 1040,80 1040,110",
-    "1040,110 1100,110 1100,85",
-    "1100,85 1145,85 1145,140",
-    "1040,110 1065,110 1065,175",
-    "1065,175 1120,175 1120,250",
-    "1120,250 1180,250 1180,200",
-    "1065,175 1005,175 1005,230",
-    "1005,230 960,230 960,280",
-    "1120,250 1085,250 1085,300",
-    "980,80 980,140 1005,140 1005,175",
-    "1025,55 1025,80 980,80",
-    "1100,85 1165,85 1165,95",
-    "1145,140 1210,140 1210,160",
-    "1005,230 990,230 990,190",
-    "1120,250 1155,250 1155,220",
-    "1085,300 1045,300 1045,270",
-    "1180,200 1195,200 1195,280",
-    "945,150 980,150 980,80",
-    "945,150 945,230 960,230",
-    "1165,95 1165,140 1145,140",
-]
-
-# Neural net nodes across mid-right field (avoid overlapping hero text)
-NEURAL = [
-    (720, 60), (760, 100), (800, 55), (840, 95), (880, 70),
-    (730, 150), (770, 185), (815, 155), (860, 190), (900, 160),
-    (740, 240), (785, 270), (830, 245), (875, 280), (915, 250),
-    (700, 110), (695, 200), (705, 290),
-]
-
-
-def neural_layer(t: dict) -> str:
-    lines = ['  <!-- Neural network -->', f'  <g fill="none" stroke="{t["circuit"]}" stroke-width="0.9">']
-    # Connect nearby nodes
-    for i, (x1, y1) in enumerate(NEURAL):
-        for j, (x2, y2) in enumerate(NEURAL):
-            if j <= i:
-                continue
-            dist2 = (x1 - x2) ** 2 + (y1 - y2) ** 2
-            if dist2 < 85 ** 2:
-                delay = ((i + j) % 9) * 0.4
-                lines.append(f'''    <line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" opacity="0.2">
-      <animate attributeName="opacity" values="0.08;0.35;0.08" dur="5s" begin="{delay}s" repeatCount="indefinite"/>
-    </line>''')
-    lines.append('  </g>')
-    lines.append(f'  <g fill="{t["node"]}">')
-    for i, (x, y) in enumerate(NEURAL):
-        delay = (i % 8) * 0.35
-        lines.append(f'''    <circle cx="{x}" cy="{y}" r="2.2" opacity="0.4">
-      <animate attributeName="opacity" values="0.2;0.75;0.2" dur="3.2s" begin="{delay}s" repeatCount="indefinite"/>
-    </circle>''')
-    lines.append('  </g>')
-    return '\n'.join(lines) + '\n'
-
-
-def mesh_layer(t: dict) -> str:
+def aurora_defs(t: dict, w: int = 1280, h: int = 400) -> str:
     return f'''  <defs>
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="{t['bg0']}">
-        <animate attributeName="stop-color" values="{t['bg0']};{t['mesh_a']};{t['bg0']}" dur="18s" repeatCount="indefinite"/>
-      </stop>
-      <stop offset="45%" stop-color="{t['bg1']}">
-        <animate attributeName="stop-color" values="{t['bg1']};{t['mesh_b']};{t['bg1']}" dur="18s" begin="2s" repeatCount="indefinite"/>
-      </stop>
-      <stop offset="100%" stop-color="{t['bg0']}">
-        <animate attributeName="stop-color" values="{t['bg0']};{t['mesh_c']};{t['bg0']}" dur="18s" begin="4s" repeatCount="indefinite"/>
-      </stop>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="{t['bg0']}"/>
+      <stop offset="50%" stop-color="{t['bg1']}"/>
+      <stop offset="100%" stop-color="{t['bg0']}"/>
     </linearGradient>
-    <radialGradient id="mesh1" cx="22%" cy="30%" r="45%">
-      <stop offset="0%" stop-color="{t['accent_soft']}" stop-opacity="0.55"/>
+    <radialGradient id="auroraA" cx="28%" cy="40%" r="42%">
+      <stop offset="0%" stop-color="{t['glow']}" stop-opacity="0.85"/>
       <stop offset="100%" stop-color="{t['bg0']}" stop-opacity="0"/>
-      <animate attributeName="cx" values="22%;28%;18%;22%" dur="22s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="30%;24%;36%;30%" dur="22s" repeatCount="indefinite"/>
+      <animate attributeName="cx" values="28%;34%;24%;28%" dur="22s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="40%;32%;46%;40%" dur="22s" repeatCount="indefinite"/>
     </radialGradient>
-    <radialGradient id="mesh2" cx="78%" cy="60%" r="40%">
-      <stop offset="0%" stop-color="{t['mesh_b']}" stop-opacity="0.7"/>
+    <radialGradient id="auroraB" cx="72%" cy="55%" r="38%">
+      <stop offset="0%" stop-color="{t['soft']}" stop-opacity="0.55"/>
       <stop offset="100%" stop-color="{t['bg0']}" stop-opacity="0"/>
-      <animate attributeName="cx" values="78%;72%;82%;78%" dur="26s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="60%;68%;54%;60%" dur="26s" repeatCount="indefinite"/>
+      <animate attributeName="cx" values="72%;66%;78%;72%" dur="26s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="55%;62%;48%;55%" dur="26s" repeatCount="indefinite"/>
     </radialGradient>
-    <radialGradient id="mesh3" cx="55%" cy="15%" r="35%">
-      <stop offset="0%" stop-color="{t['mesh_a']}" stop-opacity="0.55"/>
+    <radialGradient id="auroraC" cx="50%" cy="20%" r="30%">
+      <stop offset="0%" stop-color="{t['accent2']}" stop-opacity="0.18"/>
       <stop offset="100%" stop-color="{t['bg0']}" stop-opacity="0"/>
-      <animate attributeName="cx" values="55%;60%;50%;55%" dur="20s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="10s" repeatCount="indefinite"/>
     </radialGradient>
-    <!-- Soft blend into GitHub page background -->
-    <linearGradient id="edgeFadeY" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="fadeY" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="white" stop-opacity="0"/>
-      <stop offset="8%" stop-color="white" stop-opacity="1"/>
-      <stop offset="72%" stop-color="white" stop-opacity="1"/>
+      <stop offset="10%" stop-color="white" stop-opacity="1"/>
+      <stop offset="78%" stop-color="white" stop-opacity="1"/>
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </linearGradient>
-    <linearGradient id="edgeFadeX" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="white" stop-opacity="0.15"/>
-      <stop offset="4%" stop-color="white" stop-opacity="1"/>
-      <stop offset="96%" stop-color="white" stop-opacity="1"/>
-      <stop offset="100%" stop-color="white" stop-opacity="0.15"/>
-    </linearGradient>
-    <mask id="pageBlend" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="360">
-      <rect width="1280" height="360" fill="url(#edgeFadeY)"/>
+    <mask id="pageBlend" maskUnits="userSpaceOnUse" x="0" y="0" width="{w}" height="{h}">
+      <rect width="{w}" height="{h}" fill="url(#fadeY)"/>
     </mask>
   </defs>
-  <g mask="url(#pageBlend)">
-  <rect width="1280" height="360" fill="url(#bgGrad)"/>
-  <rect width="1280" height="360" fill="url(#mesh1)">
-    <animate attributeName="opacity" values="0.7;1;0.7" dur="14s" repeatCount="indefinite"/>
-  </rect>
-  <rect width="1280" height="360" fill="url(#mesh2)">
-    <animate attributeName="opacity" values="0.6;0.95;0.6" dur="16s" begin="1s" repeatCount="indefinite"/>
-  </rect>
-  <rect width="1280" height="360" fill="url(#mesh3)" opacity="0.8"/>
 '''
 
 
-def vignette(t: dict, height: int = 360) -> str:
-    # Close the mask group opened in mesh_layer; no hard box edge
-    return "  </g>\n"
+def stars_layer(t: dict, count: int = 48, h: int = 400) -> str:
+    lines = [f'  <g fill="{t["star"]}">']
+    for i in range(count):
+        x = (41 * i * i + 17 * i + 53) % 1240 + 20
+        y = (29 * i + 11 * (i % 9) + 7) % (h - 40) + 20
+        r = 0.5 + (i % 4) * 0.35
+        op = 0.15 + (i % 5) * 0.08
+        dur = 3.5 + (i % 7) * 0.55
+        delay = (i % 12) * 0.25
+        lines.append(f'''    <circle cx="{x}" cy="{y}" r="{r}" opacity="{op:.2f}">
+      <animate attributeName="opacity" values="{op:.2f};{min(op + 0.45, 0.95):.2f};{op:.2f}" dur="{dur:.1f}s" begin="{delay:.1f}s" repeatCount="indefinite"/>
+    </circle>''')
+    lines.append("  </g>")
+    return "\n".join(lines) + "\n"
+
+
+def orbits_layer(t: dict) -> str:
+    # Right-side orbital system — signature mark, not school circuits
+    cx, cy = 980, 200
+    parts = [f'  <g fill="none" transform="translate(0,0)">']
+    for i, (rx, ry, dur, op) in enumerate(
+        [
+            (90, 90, 28, 0.35),
+            (130, 70, 36, 0.28),
+            (170, 110, 44, 0.2),
+        ]
+    ):
+        parts.append(f'''    <ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" stroke="{t['orbit']}" stroke-width="1.1" opacity="{op}">
+      <animateTransform attributeName="transform" type="rotate" values="0 {cx} {cy}; 360 {cx} {cy}" dur="{dur}s" repeatCount="indefinite"/>
+    </ellipse>''')
+        # satellite dots
+        angle = i * 40
+        parts.append(f'''    <circle cx="{cx + rx}" cy="{cy}" r="3" fill="{t['accent']}" opacity="0.85">
+      <animateTransform attributeName="transform" type="rotate" values="{angle} {cx} {cy}; {angle + 360} {cx} {cy}" dur="{dur * 0.7:.0f}s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" begin="{i * 0.4}s" repeatCount="indefinite"/>
+    </circle>''')
+    parts.append(f'''    <circle cx="{cx}" cy="{cy}" r="8" fill="{t['accent']}" opacity="0.9">
+      <animate attributeName="r" values="7;10;7" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="{cx}" cy="{cy}" r="18" fill="none" stroke="{t['accent2']}" stroke-width="1" opacity="0.35">
+      <animate attributeName="r" values="16;24;16" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0.08;0.4" dur="4s" repeatCount="indefinite"/>
+    </circle>
+  </g>''')
+    return "\n".join(parts) + "\n"
+
+
+def wave_path(y: int = 320, amp: int = 14, cycles: int = 3) -> str:
+    pts = []
+    for i in range(0, 1281, 8):
+        t = i / 1280 * cycles * 2 * pi
+        pts.append(f"{i},{y + amp * sin(t):.1f}")
+    return "M" + " L".join(pts)
+
+
+def waves_layer(t: dict) -> str:
+    w1 = wave_path(310, 12, 2.5)
+    w2 = wave_path(330, 8, 3.2)
+    return f'''  <g fill="none" stroke-linecap="round">
+    <path d="{w1}" stroke="{t['wave']}" stroke-width="1.5" opacity="0.45" stroke-dasharray="6 10">
+      <animate attributeName="stroke-dashoffset" from="0" to="-80" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.25;0.55;0.25" dur="6s" repeatCount="indefinite"/>
+    </path>
+    <path d="{w2}" stroke="{t['accent2']}" stroke-width="1" opacity="0.3" stroke-dasharray="4 12">
+      <animate attributeName="stroke-dashoffset" from="0" to="64" dur="10s" repeatCount="indefinite"/>
+    </path>
+  </g>
+'''
+
+
+def hero_text(t: dict) -> str:
+    return f'''  <g>
+    <text x="72" y="88" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="12" font-weight="600" letter-spacing="3.5" opacity="0">
+      SOFTWARE DEVELOPER
+      <animate attributeName="opacity" from="0" to="1" begin="0.2s" dur="0.6s" fill="freeze"/>
+    </text>
+    <text x="72" y="168" fill="{t['ink']}" font-family="{FONT_UI}" font-size="64" font-weight="400" letter-spacing="-1.2" opacity="0">
+      Cael Findley
+      <animate attributeName="opacity" from="0" to="1" begin="0.5s" dur="0.9s" fill="freeze"/>
+      <animateTransform attributeName="transform" type="translate" values="0,16; 0,0" begin="0.5s" dur="0.9s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+    </text>
+    <text x="72" y="214" fill="{t['muted']}" font-family="{FONT_SANS}" font-size="17" opacity="0">
+      AI systems · full-stack products · systems programming
+      <animate attributeName="opacity" from="0" to="1" begin="1.2s" dur="0.7s" fill="freeze"/>
+    </text>
+    <text x="72" y="248" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="12" letter-spacing="1.5" opacity="0">
+      Texas A&amp;M CS  ·  @cael1127
+      <animate attributeName="opacity" from="0" to="1" begin="1.6s" dur="0.6s" fill="freeze"/>
+    </text>
+    <rect x="72" y="272" width="0" height="2" fill="{t['accent']}" rx="1" opacity="0.9">
+      <animate attributeName="width" from="0" to="180" begin="2.0s" dur="1.1s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1"/>
+    </rect>
+  </g>
+'''
 
 
 def header_svg(theme: str) -> str:
     t = THEMES[theme]
     return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 360" width="1280" height="360" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" width="1280" height="400" role="img" aria-labelledby="title desc">
   <title id="title">Cael Findley — Software Developer</title>
-  <desc id="desc">Animated personal profile banner ({theme} mode): engineering grid, circuit traces, and typewriter introduction</desc>
-{mesh_layer(t)}{grid_layer(t)}{particles_layer(t)}{streams_layer(t)}{neural_layer(t)}{circuit_layer(t)}{brand_rail(t)}{hero_text(t)}{vignette(t)}</svg>
-'''
-
-
-def grid_layer(t: dict, height: int = 360) -> str:
-    lines = ['  <!-- Engineering grid -->', f'  <g stroke="{t["grid_faint"]}" stroke-width="1" fill="none">']
-    for x in range(0, 1281, 20):
-        op = 0.5 if x % 80 == 0 else (0.32 if x % 40 == 0 else 0.14)
-        lines.append(f'    <line x1="{x}" y1="0" x2="{x}" y2="{height}" opacity="{op}"/>')
-    for y in range(0, height + 1, 20):
-        op = 0.5 if y % 80 == 0 else (0.32 if y % 40 == 0 else 0.14)
-        lines.append(f'    <line x1="0" y1="{y}" x2="1280" y2="{y}" opacity="{op}"/>')
-    lines.append('  </g>')
-    lines.append(f'''  <g stroke="{t['grid']}" stroke-width="1" fill="none" opacity="0">
-    <line x1="0" y1="120" x2="1280" y2="120"/>
-    <line x1="0" y1="240" x2="1280" y2="240"/>
-    <animate attributeName="opacity" values="0.15;0.45;0.15" dur="8s" repeatCount="indefinite"/>
-  </g>''')
-    return '\n'.join(lines) + '\n'
-
-
-def particles_layer(t: dict) -> str:
-    lines = ['  <!-- Particles -->', f'  <g fill="{t["particle"]}">']
-    for i, (x, y, r, op, dur, dx, dy, delay) in enumerate(PARTICLES):
-        lines.append(f'''    <circle cx="{x}" cy="{y}" r="{r}" opacity="{op}">
-      <animateTransform attributeName="transform" type="translate" values="0,0; {dx},{dy}; 0,0" dur="{dur}s" begin="{delay}s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="{op};{min(op + 0.25, 0.7):.2f};{op}" dur="{dur * 0.7:.1f}s" begin="{delay}s" repeatCount="indefinite"/>
-    </circle>''')
-    lines.append('  </g>')
-    return '\n'.join(lines) + '\n'
-
-
-def streams_layer(t: dict) -> str:
-    streams = [
-        (80, 300, 420, 300, 7, 0),
-        (200, 320, 560, 320, 9, 1.5),
-        (900, 40, 1200, 40, 8, 0.8),
-        (850, 60, 1180, 60, 11, 2.2),
-        (640, 340, 980, 340, 10, 0.4),
-        (40, 40, 280, 40, 12, 1.0),
-        (50, 60, 260, 60, 8, 2.8),
-        (1000, 330, 1260, 330, 9, 1.7),
-    ]
-    lines = ['  <!-- Data streams -->', f'  <g fill="none" stroke="{t["stream"]}" stroke-width="1.2" stroke-linecap="round">']
-    for x1, y1, x2, y2, dur, delay in streams:
-        length = abs(x2 - x1)
-        lines.append(f'''    <path d="M{x1},{y1} H{x2}" stroke-dasharray="6 14" opacity="0.35">
-      <animate attributeName="stroke-dashoffset" from="0" to="-{length}" dur="{dur}s" begin="{delay}s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="{dur}s" begin="{delay}s" repeatCount="indefinite"/>
-    </path>''')
-    lines.append('  </g>')
-    return '\n'.join(lines) + '\n'
-
-
-def circuit_layer(t: dict) -> str:
-    lines = ['  <!-- Circuit traces & nodes -->']
-    lines.append(f'  <g fill="none" stroke="{t["circuit"]}" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">')
-    for i, pts in enumerate(TRACES):
-        delay = i * 0.35
-        lines.append(f'''    <polyline points="{pts}" opacity="0.55">
-      <animate attributeName="opacity" values="0.25;0.7;0.25" dur="3.6s" begin="{delay}s" repeatCount="indefinite"/>
-    </polyline>''')
-    lines.append('  </g>')
-    lines.append(f'  <g fill="{t["node"]}">')
-    for i, (cx, cy, r) in enumerate(NODES):
-        delay = i * 0.4
-        dur = 2.4 + (i % 4) * 0.45
-        lines.append(f'''    <circle cx="{cx}" cy="{cy}" r="{r}" opacity="0.55">
-      <animate attributeName="opacity" values="0.3;0.95;0.3" dur="{dur}s" begin="{delay}s" repeatCount="indefinite"/>
-      <animate attributeName="r" values="{r};{r * 1.35:.2f};{r}" dur="{dur}s" begin="{delay}s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="{cx}" cy="{cy}" r="{r * 2.8:.1f}" fill="{t["accent"]}" opacity="0.08">
-      <animate attributeName="opacity" values="0.04;0.16;0.04" dur="{dur}s" begin="{delay}s" repeatCount="indefinite"/>
-    </circle>''')
-    lines.append('  </g>')
-    # Floating geometry
-    lines.append(f'''  <g fill="none" stroke="{t["circuit"]}" stroke-width="1" opacity="0.4">
-    <rect x="1080" y="40" width="36" height="36" rx="2">
-      <animateTransform attributeName="transform" type="rotate" values="0 1098 58; 360 1098 58" dur="48s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.25;0.55;0.25" dur="10s" repeatCount="indefinite"/>
-    </rect>
-    <polygon points="1180,280 1200,310 1160,310">
-      <animateTransform attributeName="transform" type="translate" values="0,0; 0,-8; 0,0" dur="9s" repeatCount="indefinite"/>
-    </polygon>
-  </g>
-''')
-    return '\n'.join(lines) + '\n'
-
-
-def brand_rail(t: dict, height: int = 360) -> str:
-    return f'''  <!-- Steel accent rail -->
-  <rect x="0" y="0" width="8" height="{height}" fill="{t['rail']}">
-    <animate attributeName="opacity" values="0.85;1;0.85" dur="6s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="8" y="0" width="2" height="{height}" fill="{t['white']}" opacity="0.55"/>
-'''
-
-
-def hero_text(t: dict) -> str:
-    return f'''  <!-- Hero typography -->
-  <g font-family="{FONT_UI}">
-    <text x="64" y="56" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="11" font-weight="600" letter-spacing="2.5" opacity="0">
-      SOFTWARE DEVELOPER  ·  @CAEL1127
-      <animate attributeName="opacity" from="0" to="1" begin="0.1s" dur="0.5s" fill="freeze"/>
-    </text>
-    <text x="64" y="148" fill="{t['ink']}" font-size="52" font-weight="600" letter-spacing="-0.8" opacity="0">
-      Cael Findley
-      <animate attributeName="opacity" from="0" to="1" begin="0.3s" dur="0.8s" fill="freeze"/>
-      <animateTransform attributeName="transform" type="translate" values="0,10; 0,0" begin="0.3s" dur="0.8s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.8 0.2 1"/>
-    </text>
-    <rect x="400" y="112" width="2.5" height="42" fill="{t['cursor']}" opacity="0" rx="0.5">
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.18;0.19;0.48;0.49;1" dur="1.1s" begin="1.0s" repeatCount="indefinite"/>
-      <animate attributeName="x" values="64;400" dur="1.4s" begin="0.3s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1"/>
-    </rect>
-    <text x="64" y="188" fill="{t['muted']}" font-size="18" font-weight="500" letter-spacing="0.2" opacity="0">
-      Computer Science  ·  Texas A&amp;M  ·  Full-stack AI builder
-      <animate attributeName="opacity" from="0" to="1" begin="1.2s" dur="0.7s" fill="freeze"/>
-      <animateTransform attributeName="transform" type="translate" values="0,8; 0,0" begin="1.2s" dur="0.7s" fill="freeze"/>
-    </text>
-  </g>
-  <!-- Focus chips -->
-  <g font-family="{FONT_UI}" font-size="13" font-weight="500" opacity="0">
-    <g>
-      <rect x="64" y="220" width="158" height="28" rx="6" fill="{t['accent']}" fill-opacity="0.18" stroke="{t['accent']}" stroke-opacity="0.75" stroke-width="1.25"/>
-      <text x="143" y="238" text-anchor="middle" fill="{t['ink']}">Artificial Intelligence</text>
-    </g>
-    <g>
-      <rect x="234" y="220" width="152" height="28" rx="6" fill="{t['accent']}" fill-opacity="0.12" stroke="{t['accent']}" stroke-opacity="0.55" stroke-width="1.25"/>
-      <text x="310" y="238" text-anchor="middle" fill="{t['ink']}">Software Engineering</text>
-    </g>
-    <g>
-      <rect x="398" y="220" width="78" height="28" rx="6" fill="{t['accent']}" fill-opacity="0.12" stroke="{t['accent']}" stroke-opacity="0.55" stroke-width="1.25"/>
-      <text x="437" y="238" text-anchor="middle" fill="{t['ink']}">Systems</text>
-    </g>
-    <g>
-      <rect x="488" y="220" width="138" height="28" rx="6" fill="{t['accent']}" fill-opacity="0.12" stroke="{t['accent']}" stroke-opacity="0.55" stroke-width="1.25"/>
-      <text x="557" y="238" text-anchor="middle" fill="{t['ink']}">Machine Learning</text>
-    </g>
-    <animate attributeName="opacity" from="0" to="1" begin="1.9s" dur="0.8s" fill="freeze"/>
-  </g>
-  <!-- Accent measure -->
-  <g opacity="0">
-    <rect x="64" y="272" width="240" height="2" fill="{t['circuit']}" rx="1"/>
-    <rect x="64" y="272" width="0" height="2" fill="{t['rail']}" rx="1">
-      <animate attributeName="width" from="0" to="240" begin="2.5s" dur="1.2s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1"/>
-    </rect>
-    <text x="64" y="296" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="11" font-weight="600" letter-spacing="2">BUILD  ·  SHIP  ·  ITERATE</text>
-    <animate attributeName="opacity" from="0" to="1" begin="2.5s" dur="0.4s" fill="freeze"/>
-  </g>
-  <!-- Brand ticks -->
-  <g font-family="{FONT_MONO}" font-size="9" fill="{t['accent']}" opacity="0.55">
-    <text x="64" y="28">PERSONAL</text>
-    <text x="1220" y="28" text-anchor="end">STEEL #2463EB</text>
-    <text x="64" y="318">CS · TEXAS A&amp;M</text>
-    <text x="1220" y="318" text-anchor="end">@CAEL1127</text>
-  </g>
+  <desc id="desc">Aurora and orbit animated banner for personal GitHub profile ({theme})</desc>
+{aurora_defs(t, 1280, 400)}  <g mask="url(#pageBlend)">
+  <rect width="1280" height="400" fill="url(#sky)"/>
+  <rect width="1280" height="400" fill="url(#auroraA)"/>
+  <rect width="1280" height="400" fill="url(#auroraB)"/>
+  <rect width="1280" height="400" fill="url(#auroraC)"/>
+{stars_layer(t, 52, 400)}{orbits_layer(t)}{waves_layer(t)}{hero_text(t)}  </g>
+</svg>
 '''
 
 
 def footer_svg(theme: str) -> str:
     t = THEMES[theme]
-    particles = PARTICLES[:36]
-    body = []
-    body.append(f'  <g stroke="{t["grid_faint"]}" stroke-width="1" fill="none" opacity="0.45">')
-    for x in range(0, 1281, 40):
-        body.append(f'    <line x1="{x}" y1="0" x2="{x}" y2="120"/>')
-    for y in range(0, 121, 40):
-        body.append(f'    <line x1="0" y1="{y}" x2="1280" y2="{y}"/>')
-    body.append('  </g>')
-    body.append(f'''  <line x1="64" y1="28" x2="1216" y2="28" stroke="{t['accent']}" stroke-width="1.25" opacity="0.55">
-    <animate attributeName="opacity" values="0.35;0.8;0.35" dur="8s" repeatCount="indefinite"/>
-  </line>
-''')
-    body.append(f'  <g fill="{t["particle"]}">')
-    for i, (x, y, r, op, dur, dx, dy, delay) in enumerate(particles):
-        fy = 40 + (y % 50)
-        body.append(f'''    <circle cx="{x}" cy="{fy}" r="{r * 0.85:.2f}" opacity="{op * 0.8:.2f}">
-      <animateTransform attributeName="transform" type="translate" values="0,0; {dx * 0.5:.0f},{dy * 0.3:.0f}; 0,0" dur="{dur}s" begin="{delay}s" repeatCount="indefinite"/>
-    </circle>''')
-    body.append('  </g>')
-    body.append(f'''  <circle cx="76" cy="68" r="4" fill="{t['accent']}">
-    <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
-  </circle>
-  <text x="92" y="68" fill="{t['ink']}" font-family="{FONT_UI}" font-size="15" font-weight="600">Cael Findley</text>
-  <text x="92" y="86" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="10" letter-spacing="1.5">@CAEL1127</text>
-  <text x="1216" y="68" text-anchor="end" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="11" font-weight="600" letter-spacing="1.5">SOFTWARE DEVELOPER</text>
-  <text x="1216" y="86" text-anchor="end" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="10" letter-spacing="1">TEXAS A&amp;M · CS</text>
-''')
-    inner = "\n".join(body)
+    stars = []
+    for i in range(24):
+        x = 80 + i * 48
+        delay = i * 0.15
+        stars.append(f'''  <circle cx="{x}" cy="56" r="1.4" fill="{t['star']}" opacity="0.25">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="3.2s" begin="{delay}s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="48;64;48" dur="4.5s" begin="{delay}s" repeatCount="indefinite"/>
+  </circle>''')
     return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 120" width="1280" height="120" role="img" aria-labelledby="ftitle">
-  <title id="ftitle">Cael Findley — footer</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 100" width="1280" height="100" role="img" aria-labelledby="ft">
+  <title id="ft">Cael Findley — footer</title>
   <defs>
-    <linearGradient id="fbg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="fsky" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="{t['bg0']}"/>
-      <stop offset="100%" stop-color="{t['bg1']}"/>
+      <stop offset="50%" stop-color="{t['bg1']}"/>
+      <stop offset="100%" stop-color="{t['bg0']}"/>
     </linearGradient>
-    <radialGradient id="fmesh" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="{t['accent_soft']}" stop-opacity="0.35"/>
-      <stop offset="100%" stop-color="{t['bg0']}" stop-opacity="0"/>
-    </radialGradient>
     <linearGradient id="ffade" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="white" stop-opacity="0"/>
-      <stop offset="28%" stop-color="white" stop-opacity="1"/>
+      <stop offset="35%" stop-color="white" stop-opacity="1"/>
       <stop offset="100%" stop-color="white" stop-opacity="1"/>
     </linearGradient>
-    <mask id="ffadeMask" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="120">
-      <rect width="1280" height="120" fill="url(#ffade)"/>
+    <mask id="ffm" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="100">
+      <rect width="1280" height="100" fill="url(#ffade)"/>
     </mask>
   </defs>
-  <g mask="url(#ffadeMask)">
-  <rect width="1280" height="120" fill="url(#fbg)"/>
-  <rect width="1280" height="120" fill="url(#fmesh)">
-    <animate attributeName="opacity" values="0.5;1;0.5" dur="12s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="0" y="0" width="8" height="120" fill="{t['rail']}"/>
-  <rect x="8" y="0" width="2" height="120" fill="{t['white']}" opacity="0.55"/>
-{inner}
+  <g mask="url(#ffm)">
+  <rect width="1280" height="100" fill="url(#fsky)"/>
+  <line x1="72" y1="28" x2="1208" y2="28" stroke="{t['accent']}" stroke-width="1" opacity="0.35">
+    <animate attributeName="opacity" values="0.2;0.55;0.2" dur="7s" repeatCount="indefinite"/>
+  </line>
+{chr(10).join(stars)}
+  <text x="72" y="62" fill="{t['ink']}" font-family="{FONT_UI}" font-size="16">Cael Findley</text>
+  <text x="72" y="82" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="10" letter-spacing="2">BUILD WITH INTENT</text>
+  <text x="1208" y="62" text-anchor="end" fill="{t['muted']}" font-family="{FONT_MONO}" font-size="11">@cael1127</text>
+  <text x="1208" y="82" text-anchor="end" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="10">findley.netlify.app</text>
   </g>
 </svg>
 '''
 
 
-def divider_svg(theme: str) -> str:
-    """Legacy alias — pulse node (used as about accent)."""
-    return accent_about(theme)
+def accent_wave(theme: str) -> str:
+    t = THEMES[theme]
+    d = wave_path(28, 10, 4)
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
+  <path d="{d}" fill="none" stroke="{t['wave']}" stroke-width="1.4" opacity="0.55" stroke-dasharray="8 10">
+    <animate attributeName="stroke-dashoffset" from="0" to="-72" dur="6s" repeatCount="indefinite"/>
+  </path>
+</svg>
+'''
 
 
-def bridge_svg(theme: str) -> str:
-    """After hero: soft falling particles."""
+def accent_orbit(theme: str) -> str:
+    t = THEMES[theme]
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
+  <ellipse cx="640" cy="28" rx="48" ry="16" fill="none" stroke="{t['orbit']}" stroke-width="1.2" opacity="0.55">
+    <animateTransform attributeName="transform" type="rotate" values="0 640 28; 360 640 28" dur="14s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="640" cy="28" rx="28" ry="28" fill="none" stroke="{t['accent2']}" stroke-width="1" opacity="0.35">
+    <animateTransform attributeName="transform" type="rotate" values="360 640 28; 0 640 28" dur="10s" repeatCount="indefinite"/>
+  </ellipse>
+  <circle cx="640" cy="28" r="4" fill="{t['accent']}">
+    <animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="688" cy="28" r="2.5" fill="{t['accent2']}">
+    <animateTransform attributeName="transform" type="rotate" values="0 640 28; 360 640 28" dur="14s" repeatCount="indefinite"/>
+  </circle>
+</svg>
+'''
+
+
+def accent_pulse(theme: str) -> str:
+    t = THEMES[theme]
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
+  <line x1="200" y1="28" x2="560" y2="28" stroke="{t['line']}" stroke-width="1"/>
+  <line x1="720" y1="28" x2="1080" y2="28" stroke="{t['line']}" stroke-width="1"/>
+  <circle cx="640" cy="28" r="5" fill="{t['accent']}">
+    <animate attributeName="r" values="4;7;4" dur="2.8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="640" cy="28" r="14" fill="none" stroke="{t['accent']}" stroke-width="1" opacity="0.4">
+    <animate attributeName="r" values="10;20;10" dur="2.8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.45;0.05;0.45" dur="2.8s" repeatCount="indefinite"/>
+  </circle>
+</svg>
+'''
+
+
+def accent_constellation(theme: str) -> str:
+    t = THEMES[theme]
+    hubs = [(520, 20), (580, 40), (640, 16), (700, 38), (760, 22), (620, 42)]
+    links = [(0, 1), (1, 2), (2, 3), (3, 4), (1, 5), (2, 5), (3, 5)]
+    parts = []
+    for i, (a, b) in enumerate(links):
+        x1, y1 = hubs[a]
+        x2, y2 = hubs[b]
+        parts.append(f'''  <line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{t['orbit']}" stroke-width="1" opacity="0.25">
+    <animate attributeName="opacity" values="0.1;0.55;0.1" dur="3.5s" begin="{i * 0.3}s" repeatCount="indefinite"/>
+  </line>''')
+    for i, (x, y) in enumerate(hubs):
+        parts.append(f'''  <circle cx="{x}" cy="{y}" r="2.8" fill="{t['accent']}" opacity="0.6">
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="{i * 0.2}s" repeatCount="indefinite"/>
+  </circle>''')
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
+{chr(10).join(parts)}
+</svg>
+'''
+
+
+def accent_bridge(theme: str) -> str:
+    """Soft star rain under hero — not school falling particles on a dashed line."""
     t = THEMES[theme]
     dots = []
-    for i in range(18):
-        x = 80 + i * 64
-        delay = i * 0.22
-        dots.append(f'''  <circle cx="{x}" cy="20" r="1.6" fill="{t['accent']}" opacity="0.2">
-    <animate attributeName="cy" values="8;40;8" dur="3.6s" begin="{delay}s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.7;0.1" dur="3.6s" begin="{delay}s" repeatCount="indefinite"/>
+    for i in range(14):
+        x = 160 + i * 72
+        delay = i * 0.28
+        dots.append(f'''  <circle cx="{x}" cy="24" r="1.8" fill="{t['accent']}" opacity="0.2">
+    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="{delay}s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="{delay}s" repeatCount="indefinite"/>
   </circle>''')
     return f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 48" width="1280" height="48" role="img" aria-hidden="true">
-  <path d="M200,24 H1080" fill="none" stroke="{t['accent']}" stroke-width="1" stroke-dasharray="2 12" opacity="0.35">
-    <animate attributeName="stroke-dashoffset" from="0" to="-56" dur="5s" repeatCount="indefinite"/>
+  <path d="M120,24 Q640,8 1160,24" fill="none" stroke="{t['wave']}" stroke-width="1" opacity="0.3">
+    <animate attributeName="opacity" values="0.15;0.4;0.15" dur="5s" repeatCount="indefinite"/>
   </path>
 {chr(10).join(dots)}
 </svg>
 '''
 
 
-def accent_about(theme: str) -> str:
-    """Breathing dual rings around a maroon core."""
-    t = THEMES[theme]
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <line x1="200" y1="28" x2="560" y2="28" stroke="{t['circuit']}" stroke-width="1" opacity="0.45"/>
-  <line x1="720" y1="28" x2="1080" y2="28" stroke="{t['circuit']}" stroke-width="1" opacity="0.45"/>
-  <circle cx="640" cy="28" r="4" fill="{t['accent']}">
-    <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="640" cy="28" r="12" fill="none" stroke="{t['accent']}" stroke-width="1" opacity="0.4">
-    <animate attributeName="r" values="10;16;10" dur="3s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.45;0.1;0.45" dur="3s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="640" cy="28" r="20" fill="none" stroke="{t['accent']}" stroke-width="1" opacity="0.2">
-    <animate attributeName="r" values="16;24;16" dur="3s" begin="0.4s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.3;0.05;0.3" dur="3s" begin="0.4s" repeatCount="indefinite"/>
-  </circle>
-</svg>
-'''
-
-
-def accent_focus(theme: str) -> str:
-    """Four nodes lighting in sequence — one per focus area."""
-    t = THEMES[theme]
-    xs = [400, 520, 640, 760]
-    parts = []
-    for i, x in enumerate(xs):
-        parts.append(f'''  <circle cx="{x}" cy="28" r="5" fill="{t['accent']}" opacity="0.25">
-    <animate attributeName="opacity" values="0.2;1;0.2" dur="3.2s" begin="{i * 0.8}s" repeatCount="indefinite"/>
-    <animate attributeName="r" values="4;6.5;4" dur="3.2s" begin="{i * 0.8}s" repeatCount="indefinite"/>
-  </circle>''')
-        if i < len(xs) - 1:
-            x2 = xs[i + 1]
-            parts.append(f'''  <line x1="{x + 8}" y1="28" x2="{x2 - 8}" y2="28" stroke="{t['circuit']}" stroke-width="1.25" opacity="0.35">
-    <animate attributeName="opacity" values="0.2;0.7;0.2" dur="3.2s" begin="{i * 0.8 + 0.3}s" repeatCount="indefinite"/>
-  </line>''')
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-{chr(10).join(parts)}
-</svg>
-'''
-
-
-def accent_projects(theme: str) -> str:
-    """Circuit path drawing left to right."""
-    t = THEMES[theme]
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <path d="M260,28 H520 V18 H640 V38 H760 V28 H1020" fill="none" stroke="{t['accent']}" stroke-width="1.5" stroke-linecap="square" stroke-dasharray="900" stroke-dashoffset="900" opacity="0.85">
-    <animate attributeName="stroke-dashoffset" values="900;0;0;900" keyTimes="0;0.45;0.7;1" dur="6s" repeatCount="indefinite"/>
-  </path>
-  <circle cx="520" cy="18" r="2.5" fill="{t['node']}">
-    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.75;1" dur="6s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="640" cy="38" r="2.5" fill="{t['node']}">
-    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.25;0.35;0.75;1" dur="6s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="760" cy="28" r="2.5" fill="{t['node']}">
-    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.35;0.45;0.75;1" dur="6s" repeatCount="indefinite"/>
-  </circle>
-</svg>
-'''
-
-
-def accent_research(theme: str) -> str:
-    """Neural constellation — three hubs with pulsing links."""
-    t = THEMES[theme]
-    hubs = [(520, 18), (640, 38), (760, 18), (580, 40), (700, 14)]
-    lines = [
-        (0, 1), (1, 2), (0, 3), (1, 3), (1, 4), (2, 4),
-    ]
-    parts = []
-    for i, (a, b) in enumerate(lines):
-        x1, y1 = hubs[a]
-        x2, y2 = hubs[b]
-        parts.append(f'''  <line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{t['circuit']}" stroke-width="1" opacity="0.25">
-    <animate attributeName="opacity" values="0.15;0.65;0.15" dur="4s" begin="{i * 0.35}s" repeatCount="indefinite"/>
-  </line>''')
-    for i, (x, y) in enumerate(hubs):
-        parts.append(f'''  <circle cx="{x}" cy="{y}" r="3" fill="{t['accent']}" opacity="0.5">
-    <animate attributeName="opacity" values="0.3;1;0.3" dur="2.8s" begin="{i * 0.25}s" repeatCount="indefinite"/>
-  </circle>''')
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-{chr(10).join(parts)}
-</svg>
-'''
-
-
-def accent_stack(theme: str) -> str:
-    """Rising bars — tech stack energy."""
-    t = THEMES[theme]
-    bars = []
-    heights = [10, 18, 14, 24, 16, 22, 12, 20]
-    for i, h in enumerate(heights):
-        x = 480 + i * 40
-        y = 40 - h
-        bars.append(f'''  <rect x="{x}" y="{y}" width="14" height="{h}" rx="2" fill="{t['accent']}" opacity="0.35">
-    <animate attributeName="height" values="{max(6, h-8)};{h};{max(6, h-8)}" dur="{2.4 + i * 0.15:.2f}s" begin="{i * 0.12}s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="{40 - max(6, h-8)};{y};{40 - max(6, h-8)}" dur="{2.4 + i * 0.15:.2f}s" begin="{i * 0.12}s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.25;0.85;0.25" dur="{2.4 + i * 0.15:.2f}s" begin="{i * 0.12}s" repeatCount="indefinite"/>
-  </rect>''')
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <line x1="460" y1="42" x2="820" y2="42" stroke="{t['circuit']}" stroke-width="1" opacity="0.4"/>
-{chr(10).join(bars)}
-</svg>
-'''
-
-
-def accent_experience(theme: str) -> str:
-    """Chevron / arrow marching forward."""
-    t = THEMES[theme]
-    chevs = []
-    for i in range(5):
-        x = 480 + i * 70
-        chevs.append(f'''  <polyline points="{x},16 {x + 18},28 {x},40" fill="none" stroke="{t['accent']}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.2">
-    <animate attributeName="opacity" values="0.15;1;0.15" dur="2.5s" begin="{i * 0.35}s" repeatCount="indefinite"/>
-    <animateTransform attributeName="transform" type="translate" values="0,0; 8,0; 0,0" dur="2.5s" begin="{i * 0.35}s" repeatCount="indefinite"/>
-  </polyline>''')
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-{chr(10).join(chevs)}
-</svg>
-'''
-
-
 def accent_school(theme: str) -> str:
-    """Dual-account link: personal hub forking toward school account."""
+    """Two orbiting hubs — personal ↔ school."""
     t = THEMES[theme]
     return f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <path d="M560,28 H640" fill="none" stroke="{t['circuit']}" stroke-width="1.5" opacity="0.5"/>
-  <path d="M640,28 Q700,28 740,16" fill="none" stroke="{t['accent']}" stroke-width="1.5" stroke-dasharray="120" stroke-dashoffset="120">
-    <animate attributeName="stroke-dashoffset" values="120;0;0;120" keyTimes="0;0.4;0.7;1" dur="5s" repeatCount="indefinite"/>
+  <circle cx="560" cy="28" r="6" fill="{t['accent']}">
+    <animate attributeName="cx" values="540;560;540" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="720" cy="28" r="6" fill="#500000" opacity="0.85">
+    <animate attributeName="cx" values="740;720;740" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <path d="M570,28 Q640,8 710,28" fill="none" stroke="{t['orbit']}" stroke-width="1.3" stroke-dasharray="6 6" opacity="0.6">
+    <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="2s" repeatCount="indefinite"/>
   </path>
-  <path d="M640,28 Q700,28 740,40" fill="none" stroke="{t['accent']}" stroke-width="1.5" stroke-dasharray="120" stroke-dashoffset="120">
-    <animate attributeName="stroke-dashoffset" values="120;0;0;120" keyTimes="0;0.4;0.7;1" dur="5s" begin="0.35s" repeatCount="indefinite"/>
-  </path>
-  <circle cx="560" cy="28" r="4" fill="{t['accent']}">
-    <animate attributeName="opacity" values="0.5;1;0.5" dur="5s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="640" cy="28" r="3.5" fill="{t['node']}"/>
-  <circle cx="740" cy="16" r="3.5" fill="{t['accent']}" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.35;0.45;0.8;1" dur="5s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="740" cy="40" r="3.5" fill="{t['accent']}" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.4;0.5;0.8;1" dur="5s" begin="0.35s" repeatCount="indefinite"/>
-  </circle>
-  <text x="520" y="48" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="8" text-anchor="middle" opacity="0.7">@cael1127</text>
-  <text x="760" y="48" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="8" text-anchor="middle" opacity="0.7">@caelf-hub</text>
-</svg>
-'''
-
-
-def accent_education(theme: str) -> str:
-    """Rotating diamond / academic mark."""
-    t = THEMES[theme]
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <line x1="220" y1="28" x2="580" y2="28" stroke="{t['circuit']}" stroke-width="1" opacity="0.4"/>
-  <line x1="700" y1="28" x2="1060" y2="28" stroke="{t['circuit']}" stroke-width="1" opacity="0.4"/>
-  <g transform="translate(640,28)">
-    <polygon points="0,-12 12,0 0,12 -12,0" fill="none" stroke="{t['accent']}" stroke-width="1.5" opacity="0.85">
-      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="12s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.5;1;0.5" dur="4s" repeatCount="indefinite"/>
-    </polygon>
-    <circle cx="0" cy="0" r="3" fill="{t['accent']}">
-      <animate attributeName="r" values="2.5;4;2.5" dur="2.5s" repeatCount="indefinite"/>
-    </circle>
-  </g>
-</svg>
-'''
-
-
-def accent_stats(theme: str) -> str:
-    """Contribution-graph style squares pulsing."""
-    t = THEMES[theme]
-    cells = []
-    pattern = [0.2, 0.45, 0.7, 0.35, 0.9, 0.25, 0.55, 0.8, 0.4, 0.65, 0.3, 0.95, 0.5, 0.75, 0.35]
-    for i, base in enumerate(pattern):
-        x = 500 + (i % 15) * 18
-        y = 16 + (i // 15) * 18
-        # two rows
-        row = i // 8
-        col = i % 8
-        x = 560 + col * 20
-        y = 12 + row * 20
-        if i >= 16:
-            break
-        cells.append(f'''  <rect x="{x}" y="{y}" width="14" height="14" rx="2" fill="{t['accent']}" opacity="{base}">
-    <animate attributeName="opacity" values="{base};{min(1, base + 0.35):.2f};{base}" dur="{2.2 + (i % 5) * 0.3:.1f}s" begin="{i * 0.12}s" repeatCount="indefinite"/>
-  </rect>''')
-    # rebuild clean 2x8
-    cells = []
-    for row in range(2):
-        for col in range(8):
-            i = row * 8 + col
-            base = 0.2 + ((i * 37) % 70) / 100
-            x = 560 + col * 20
-            y = 12 + row * 18
-            cells.append(f'''  <rect x="{x}" y="{y}" width="14" height="14" rx="2" fill="{t['accent']}" opacity="{base:.2f}">
-    <animate attributeName="opacity" values="{base:.2f};{min(1.0, base + 0.4):.2f};{base:.2f}" dur="{2.0 + (i % 4) * 0.35:.2f}s" begin="{i * 0.1}s" repeatCount="indefinite"/>
-  </rect>''')
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-{chr(10).join(cells)}
-</svg>
-'''
-
-
-def accent_connect(theme: str) -> str:
-    """Two nodes drawing a link toward each other."""
-    t = THEMES[theme]
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <circle cx="520" cy="28" r="5" fill="{t['accent']}">
-    <animate attributeName="cx" values="500;520;500" dur="4s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="760" cy="28" r="5" fill="{t['accent']}">
-    <animate attributeName="cx" values="780;760;780" dur="4s" repeatCount="indefinite"/>
-  </circle>
-  <line x1="530" y1="28" x2="750" y2="28" stroke="{t['accent']}" stroke-width="1.5" stroke-dasharray="8 8" opacity="0.55">
-    <animate attributeName="stroke-dashoffset" from="0" to="-32" dur="2s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.3;0.85;0.3" dur="4s" repeatCount="indefinite"/>
-  </line>
-  <circle cx="640" cy="28" r="2.5" fill="{t['node']}">
-    <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
-  </circle>
+  <text x="560" y="50" text-anchor="middle" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="8">@cael1127</text>
+  <text x="720" y="50" text-anchor="middle" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="8">@caelf-hub</text>
 </svg>
 '''
 
 
 ACCENTS = {
-    "bridge": bridge_svg,
-    "about": accent_about,
-    "focus": accent_focus,
-    "projects": accent_projects,
-    "research": accent_research,
-    "stack": accent_stack,
-    "experience": accent_experience,
+    "bridge": accent_bridge,
+    "wave": accent_wave,
+    "orbit": accent_orbit,
+    "pulse": accent_pulse,
+    "constellation": accent_constellation,
     "school": accent_school,
-    "education": accent_education,
-    "stats": accent_stats,
-    "connect": accent_connect,
 }
 
 
 def main():
     accents_dir = OUT / "accents"
     accents_dir.mkdir(exist_ok=True)
+    # remove old school-clone accent names if present
+    for old in accents_dir.glob("*.svg"):
+        old.unlink()
     for theme in ("dark", "light"):
         (OUT / f"header-{theme}.svg").write_text(header_svg(theme), encoding="utf-8")
         (OUT / f"footer-{theme}.svg").write_text(footer_svg(theme), encoding="utf-8")
-        # keep root bridge/divider for backwards compatibility
-        (OUT / f"bridge-{theme}.svg").write_text(bridge_svg(theme), encoding="utf-8")
-        (OUT / f"divider-{theme}.svg").write_text(accent_about(theme), encoding="utf-8")
+        (OUT / f"bridge-{theme}.svg").write_text(accent_bridge(theme), encoding="utf-8")
         for name, fn in ACCENTS.items():
             path = accents_dir / f"{name}-{theme}.svg"
             path.write_text(fn(theme), encoding="utf-8")
-            text = path.read_text(encoding="utf-8")
-            print(f"{path.relative_to(OUT.parent)}: {len(text.splitlines())} lines")
+            print(f"{path.name}: ok")
+        print(f"header-{theme}.svg: {len(header_svg(theme))} chars")
 
 
 if __name__ == "__main__":
