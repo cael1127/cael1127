@@ -266,6 +266,7 @@ def main():
     accents_dir.mkdir(exist_ok=True)
     for theme in ("dark", "light"):
         (OUT / f"header-{theme}.svg").write_text(header_svg(theme), encoding="utf-8")
+        (OUT / f"banner-{theme}.svg").write_text(header_svg(theme), encoding="utf-8")
         (OUT / f"footer-{theme}.svg").write_text(footer_svg(theme), encoding="utf-8")
         (OUT / f"bridge-{theme}.svg").write_text(accent_bridge(theme), encoding="utf-8")
         for name, fn in ACCENTS.items():
