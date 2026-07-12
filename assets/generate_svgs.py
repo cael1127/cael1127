@@ -44,33 +44,27 @@ THEMES = {
 }
 
 
-def banner_defs(t: dict, w: int = 1280, h: int = 380) -> str:
+def banner_defs(t: dict, w: int = 1280, h: int = 420) -> str:
     return f'''  <defs>
     <linearGradient id="ground" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="{t['bg0']}"/>
-      <stop offset="45%" stop-color="{t['bg1']}"/>
+      <stop offset="55%" stop-color="{t['bg1']}"/>
       <stop offset="100%" stop-color="{t['bg0']}"/>
     </linearGradient>
-    <radialGradient id="sageMist" cx="22%" cy="55%" r="50%">
-      <stop offset="0%" stop-color="{t['glow']}" stop-opacity="0.9"/>
+    <radialGradient id="glowL" cx="18%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="{t['glow']}" stop-opacity="0.75"/>
       <stop offset="100%" stop-color="{t['bg0']}" stop-opacity="0"/>
-      <animate attributeName="cx" values="22%;28%;18%;22%" dur="20s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="55%;48%;60%;55%" dur="20s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="10s" repeatCount="indefinite"/>
     </radialGradient>
-    <radialGradient id="emeraldGlow" cx="78%" cy="35%" r="40%">
-      <stop offset="0%" stop-color="{t['deep']}" stop-opacity="0.55"/>
+    <radialGradient id="glowR" cx="88%" cy="40%" r="38%">
+      <stop offset="0%" stop-color="{t['deep']}" stop-opacity="0.5"/>
       <stop offset="100%" stop-color="{t['bg0']}" stop-opacity="0"/>
-      <animate attributeName="cx" values="78%;72%;82%;78%" dur="24s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.7;1;0.7" dur="12s" repeatCount="indefinite"/>
+      <animate attributeName="cx" values="88%;84%;90%;88%" dur="18s" repeatCount="indefinite"/>
     </radialGradient>
-    <linearGradient id="shaft" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="{t['accent']}" stop-opacity="0.22"/>
-      <stop offset="100%" stop-color="{t['accent']}" stop-opacity="0"/>
-    </linearGradient>
     <linearGradient id="fadeY" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="white" stop-opacity="0"/>
-      <stop offset="9%" stop-color="white" stop-opacity="1"/>
-      <stop offset="80%" stop-color="white" stop-opacity="1"/>
+      <stop offset="6%" stop-color="white" stop-opacity="1"/>
+      <stop offset="88%" stop-color="white" stop-opacity="1"/>
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </linearGradient>
     <mask id="pageBlend" maskUnits="userSpaceOnUse" x="0" y="0" width="{w}" height="{h}">
@@ -80,113 +74,48 @@ def banner_defs(t: dict, w: int = 1280, h: int = 380) -> str:
 '''
 
 
-def light_shafts(t: dict) -> str:
-    shafts = []
-    for i, x in enumerate([920, 980, 1040, 1100, 1160]):
-        w = 18 + (i % 3) * 6
-        delay = i * 0.8
-        shafts.append(f'''  <rect x="{x}" y="0" width="{w}" height="380" fill="url(#shaft)" opacity="0.35">
-    <animate attributeName="opacity" values="0.15;0.45;0.15" dur="7s" begin="{delay}s" repeatCount="indefinite"/>
-    <animate attributeName="x" values="{x};{x + 8};{x}" dur="9s" begin="{delay}s" repeatCount="indefinite"/>
-  </rect>''')
-    return "\n".join(shafts) + "\n"
-
-
-def leaf_cluster(t: dict) -> str:
-    """Abstract leaf / petal geometry on the right — new banner motif."""
-    # leaf path template (pointy oval)
-    leaves = [
-        # (cx, cy, scale, rot, dur, delay)
-        (1020, 120, 1.0, -25, 8, 0),
-        (1085, 165, 0.85, 15, 9, 0.5),
-        (1140, 125, 0.7, -40, 7.5, 1.0),
-        (1005, 210, 0.9, 30, 10, 0.3),
-        (1110, 230, 0.75, -10, 8.5, 1.2),
-        (1180, 190, 0.65, 45, 9.5, 0.7),
-        (1060, 280, 0.8, 5, 8, 1.5),
-        (980, 160, 0.55, -55, 11, 0.2),
-    ]
-    parts = ['  <g fill="none" stroke-linejoin="round">']
-    for i, (cx, cy, s, rot, dur, delay) in enumerate(leaves):
-        # simple leaf: elliptical diamond
-        w, h = 28 * s, 48 * s
-        color = t["leaf"] if i % 2 == 0 else t["accent2"]
-        op = 0.35 + (i % 4) * 0.08
-        parts.append(f'''    <g transform="translate({cx},{cy})">
-      <g>
-        <animateTransform attributeName="transform" type="rotate" values="{rot};{rot + 8};{rot}" dur="{dur}s" begin="{delay}s" repeatCount="indefinite"/>
-        <ellipse cx="0" cy="0" rx="{w:.1f}" ry="{h:.1f}" fill="{color}" fill-opacity="{op:.2f}" stroke="{t['accent']}" stroke-opacity="0.45" stroke-width="1.1">
-          <animate attributeName="fill-opacity" values="{op:.2f};{min(op + 0.2, 0.7):.2f};{op:.2f}" dur="{dur}s" begin="{delay}s" repeatCount="indefinite"/>
-        </ellipse>
-        <line x1="0" y1="{h * 0.7:.1f}" x2="0" y2="{-h * 0.7:.1f}" stroke="{t['accent']}" stroke-opacity="0.35" stroke-width="1"/>
-      </g>
-      <animateTransform attributeName="transform" type="translate" values="0,0; 0,{-6 + i % 3}; 0,0" dur="{dur + 2}s" begin="{delay}s" repeatCount="indefinite"/>
-    </g>''')
-    # emerald gem core
-    parts.append(f'''    <g transform="translate(1070,190)">
-      <polygon points="0,-22 18,0 0,22 -18,0" fill="{t['accent']}" fill-opacity="0.85" stroke="{t['leaf']}" stroke-width="1.2">
-        <animate attributeName="fill-opacity" values="0.65;1;0.65" dur="3.5s" repeatCount="indefinite"/>
-        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="40s" repeatCount="indefinite"/>
-      </polygon>
-      <circle cx="0" cy="0" r="4" fill="{t['bg0']}" opacity="0.5"/>
-    </g>
-  </g>''')
-    return "\n".join(parts) + "\n"
-
-
-def mist_bands(t: dict) -> str:
-    bands = []
-    for i, y in enumerate([80, 140, 220, 300]):
-        bands.append(f'''  <ellipse cx="{200 + i * 80}" cy="{y}" rx="{180 + i * 40}" ry="{28 + i * 4}" fill="{t['mist']}" opacity="0.35">
-    <animate attributeName="cx" values="{200 + i * 80};{240 + i * 80};{200 + i * 80}" dur="{14 + i * 2}s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.2;0.4;0.2" dur="{8 + i}s" repeatCount="indefinite"/>
-  </ellipse>''')
-    return "\n".join(bands) + "\n"
-
-
-def seed_dots(t: dict, count: int = 36) -> str:
-    lines = [f'  <g fill="{t["accent"]}">']
-    for i in range(count):
-        x = (37 * i * i + 19 * i + 41) % 700 + 40
-        y = (23 * i + 13 * (i % 5) + 9) % 320 + 30
-        r = 0.8 + (i % 3) * 0.4
-        op = 0.12 + (i % 5) * 0.06
-        dur = 4 + (i % 6) * 0.6
-        delay = (i % 10) * 0.3
-        lines.append(f'''    <circle cx="{x}" cy="{y}" r="{r}" opacity="{op:.2f}">
-      <animate attributeName="opacity" values="{op:.2f};{min(op + 0.4, 0.85):.2f};{op:.2f}" dur="{dur:.1f}s" begin="{delay:.1f}s" repeatCount="indefinite"/>
-      <animateTransform attributeName="transform" type="translate" values="0,0; 0,-8; 0,0" dur="{dur + 3:.1f}s" begin="{delay:.1f}s" repeatCount="indefinite"/>
-    </circle>''')
-    lines.append("  </g>")
-    return "\n".join(lines) + "\n"
+def quiet_accent(t: dict) -> str:
+    """One calm emerald ring on the right — motion without clutter."""
+    return f'''  <g fill="none" transform="translate(1040,210)">
+    <circle cx="0" cy="0" r="110" stroke="{t['accent2']}" stroke-width="1.25" opacity="0.28">
+      <animate attributeName="r" values="100;118;100" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.18;0.35;0.18" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="0" r="70" stroke="{t['accent']}" stroke-width="1.5" opacity="0.4">
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="36s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="70" cy="0" r="5" fill="{t['accent']}" opacity="0.85">
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="36s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="0" r="10" fill="{t['accent']}" opacity="0.9">
+      <animate attributeName="opacity" values="0.55;1;0.55" dur="3s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+'''
 
 
 def hero_text(t: dict) -> str:
     return f'''  <g>
-    <text x="72" y="92" fill="{t['accent2']}" font-family="{FONT_MONO}" font-size="11" font-weight="600" letter-spacing="3.2" opacity="0">
+    <text x="80" y="118" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="18" font-weight="600" letter-spacing="4" opacity="0">
       SOFTWARE DEVELOPER
-      <animate attributeName="opacity" from="0" to="1" begin="0.15s" dur="0.55s" fill="freeze"/>
+      <animate attributeName="opacity" from="0" to="1" begin="0.1s" dur="0.5s" fill="freeze"/>
     </text>
-    <text x="72" y="168" fill="{t['ink']}" font-family="{FONT_UI}" font-size="62" font-weight="400" letter-spacing="-1" opacity="0">
+    <text x="80" y="210" fill="{t['ink']}" font-family="{FONT_UI}" font-size="92" font-weight="400" letter-spacing="-1.5" opacity="0">
       Cael Findley
-      <animate attributeName="opacity" from="0" to="1" begin="0.4s" dur="0.85s" fill="freeze"/>
-      <animateTransform attributeName="transform" type="translate" values="0,14; 0,0" begin="0.4s" dur="0.85s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <animate attributeName="opacity" from="0" to="1" begin="0.35s" dur="0.75s" fill="freeze"/>
+      <animateTransform attributeName="transform" type="translate" values="0,18; 0,0" begin="0.35s" dur="0.75s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
     </text>
-    <text x="72" y="212" fill="{t['muted']}" font-family="{FONT_SANS}" font-size="16" opacity="0">
+    <text x="80" y="268" fill="{t['muted']}" font-family="{FONT_SANS}" font-size="24" font-weight="400" opacity="0">
       AI systems · full-stack products · systems programming
-      <animate attributeName="opacity" from="0" to="1" begin="1.1s" dur="0.65s" fill="freeze"/>
+      <animate attributeName="opacity" from="0" to="1" begin="1.0s" dur="0.6s" fill="freeze"/>
     </text>
-    <text x="72" y="246" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="11" letter-spacing="1.4" opacity="0">
+    <text x="80" y="310" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="16" letter-spacing="1.5" opacity="0">
       Texas A&amp;M CS  ·  @cael1127
-      <animate attributeName="opacity" from="0" to="1" begin="1.5s" dur="0.55s" fill="freeze"/>
+      <animate attributeName="opacity" from="0" to="1" begin="1.35s" dur="0.5s" fill="freeze"/>
     </text>
-    <rect x="72" y="270" width="0" height="2.5" rx="1" fill="{t['accent']}">
-      <animate attributeName="width" from="0" to="160" begin="1.9s" dur="1s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1"/>
+    <rect x="80" y="336" width="0" height="4" rx="2" fill="{t['accent']}">
+      <animate attributeName="width" from="0" to="220" begin="1.7s" dur="0.9s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1"/>
     </rect>
-    <text x="72" y="300" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="10" letter-spacing="2.5" opacity="0">
-      SAGE  ·  EMERALD  ·  BUILD
-      <animate attributeName="opacity" from="0" to="0.75" begin="2.2s" dur="0.5s" fill="freeze"/>
-    </text>
   </g>
 '''
 
@@ -194,14 +123,14 @@ def hero_text(t: dict) -> str:
 def header_svg(theme: str) -> str:
     t = THEMES[theme]
     return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 380" width="1280" height="380" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" height="420" role="img" aria-labelledby="title desc">
   <title id="title">Cael Findley — Software Developer</title>
-  <desc id="desc">Sage and emerald canopy banner for personal GitHub profile ({theme})</desc>
-{banner_defs(t)}  <g mask="url(#pageBlend)">
-  <rect width="1280" height="380" fill="url(#ground)"/>
-  <rect width="1280" height="380" fill="url(#sageMist)"/>
-  <rect width="1280" height="380" fill="url(#emeraldGlow)"/>
-{mist_bands(t)}{light_shafts(t)}{seed_dots(t)}{leaf_cluster(t)}{hero_text(t)}  </g>
+  <desc id="desc">Clean sage/emerald profile banner with large typography ({theme})</desc>
+{banner_defs(t, 1280, 420)}  <g mask="url(#pageBlend)">
+  <rect width="1280" height="420" fill="url(#ground)"/>
+  <rect width="1280" height="420" fill="url(#glowL)"/>
+  <rect width="1280" height="420" fill="url(#glowR)"/>
+{quiet_accent(t)}{hero_text(t)}  </g>
 </svg>
 '''
 
