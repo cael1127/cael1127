@@ -2,7 +2,6 @@
 """Generate sage/emerald SMIL SVG assets for cael1127 personal profile."""
 
 from pathlib import Path
-from math import sin, pi
 
 OUT = Path(__file__).resolve().parent
 FONT_UI = "Georgia, 'Times New Roman', Times, serif"
@@ -141,17 +140,11 @@ def header_svg(theme: str) -> str:
 
 
 def footer_svg(theme: str) -> str:
+    """Session footer — status bar, not floating dots."""
     t = THEMES[theme]
-    dots = []
-    for i in range(20):
-        x = 100 + i * 54
-        delay = i * 0.18
-        dots.append(f'''  <circle cx="{x}" cy="52" r="1.5" fill="{t['accent']}" opacity="0.25">
-    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="3.4s" begin="{delay}s" repeatCount="indefinite"/>
-  </circle>''')
     return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 96" width="1280" height="96" role="img" aria-labelledby="ft">
-  <title id="ft">Cael Findley — footer</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 88" width="1280" height="88" role="img" aria-labelledby="ft">
+  <title id="ft">Cael Findley — session footer</title>
   <defs>
     <linearGradient id="fground" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="{t['bg0']}"/>
@@ -160,166 +153,105 @@ def footer_svg(theme: str) -> str:
     </linearGradient>
     <linearGradient id="ffade" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="white" stop-opacity="0"/>
-      <stop offset="35%" stop-color="white" stop-opacity="1"/>
+      <stop offset="30%" stop-color="white" stop-opacity="1"/>
       <stop offset="100%" stop-color="white" stop-opacity="1"/>
     </linearGradient>
-    <mask id="ffm" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="96">
-      <rect width="1280" height="96" fill="url(#ffade)"/>
+    <mask id="ffm" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="88">
+      <rect width="1280" height="88" fill="url(#ffade)"/>
     </mask>
   </defs>
   <g mask="url(#ffm)">
-  <rect width="1280" height="96" fill="url(#fground)"/>
-  <line x1="72" y1="26" x2="1208" y2="26" stroke="{t['accent2']}" stroke-width="1" opacity="0.4">
-    <animate attributeName="opacity" values="0.25;0.55;0.25" dur="7s" repeatCount="indefinite"/>
-  </line>
-{chr(10).join(dots)}
-  <text x="72" y="58" fill="{t['ink']}" font-family="{FONT_UI}" font-size="15">Cael Findley</text>
-  <text x="72" y="78" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="10" letter-spacing="2">BUILD WITH INTENT</text>
-  <text x="1208" y="58" text-anchor="end" fill="{t['muted']}" font-family="{FONT_MONO}" font-size="11">@cael1127</text>
-  <text x="1208" y="78" text-anchor="end" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="10">findley.netlify.app</text>
+    <rect width="1280" height="88" fill="url(#fground)"/>
+    <rect x="64" y="22" width="1152" height="44" rx="8" fill="{t['glow']}" stroke="{t['line']}" stroke-width="1"/>
+    <circle cx="92" cy="44" r="5" fill="{t['accent']}">
+      <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <text x="112" y="50" fill="{t['ink']}" font-family="{FONT_MONO}" font-size="14">session complete</text>
+    <text x="640" y="50" text-anchor="middle" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="13">cael@findley · build with intent</text>
+    <text x="1196" y="50" text-anchor="end" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="13">exit 0</text>
   </g>
 </svg>
 '''
 
 
-def wave_path(y: int = 28, amp: int = 9, cycles: float = 3.5) -> str:
-    pts = []
-    for i in range(0, 1281, 8):
-        tt = i / 1280 * cycles * 2 * pi
-        pts.append(f"{i},{y + amp * sin(tt):.1f}")
-    return "M" + " L".join(pts)
+def _prompt_bar(theme: str, command: str, height: int = 52) -> str:
+    """Shared CLI prompt strip used as section chrome."""
+    t = THEMES[theme]
+    if theme == "dark":
+        bg, border, prompt, text = "#0c1210", "#2d4a38", "#86efac", "#d8e8d8"
+    else:
+        bg, border, prompt, text = "#f3f7f2", "#c5d4c5", "#047857", "#14201a"
+    safe = command.replace("&", "&amp;")
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 {height}" width="1280" height="{height}" role="img" aria-hidden="true">
+  <rect x="240" y="8" width="800" height="36" rx="8" fill="{bg}" stroke="{border}" stroke-width="1"/>
+  <text x="264" y="32" font-family="{FONT_MONO}" font-size="14">
+    <tspan fill="{prompt}">$</tspan><tspan fill="{text}"> {safe}</tspan>
+  </text>
+  <rect x="{(264 + 18 + len(command) * 8.4):.0f}" y="18" width="8" height="16" fill="{prompt}">
+    <animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+'''
 
 
 def accent_bridge(theme: str) -> str:
-    t = THEMES[theme]
-    dots = []
-    for i in range(12):
-        x = 180 + i * 80
-        delay = i * 0.3
-        dots.append(f'''  <ellipse cx="{x}" cy="24" rx="3" ry="5" fill="{t['leaf']}" opacity="0.2">
-    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="{delay}s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="{delay}s" repeatCount="indefinite"/>
-  </ellipse>''')
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 48" width="1280" height="48" role="img" aria-hidden="true">
-  <path d="M140,24 Q640,6 1140,24" fill="none" stroke="{t['accent2']}" stroke-width="1.1" opacity="0.35">
-    <animate attributeName="opacity" values="0.2;0.45;0.2" dur="5s" repeatCount="indefinite"/>
-  </path>
-{chr(10).join(dots)}
-</svg>
-'''
+    return _prompt_bar(theme, "ready")
 
 
 def accent_wave(theme: str) -> str:
-    t = THEMES[theme]
-    d = wave_path(28, 9, 3.5)
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <path d="{d}" fill="none" stroke="{t['accent']}" stroke-width="1.4" opacity="0.55" stroke-dasharray="7 9">
-    <animate attributeName="stroke-dashoffset" from="0" to="-64" dur="6s" repeatCount="indefinite"/>
-  </path>
-</svg>
-'''
+    return _prompt_bar(theme, "cd ~/focus")
 
 
 def accent_orbit(theme: str) -> str:
-    """Emerald gem with soft rings — renamed motif for accents."""
-    t = THEMES[theme]
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <circle cx="640" cy="28" r="16" fill="none" stroke="{t['accent2']}" stroke-width="1" opacity="0.4">
-    <animate attributeName="r" values="12;20;12" dur="3.2s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.4;0.1;0.4" dur="3.2s" repeatCount="indefinite"/>
-  </circle>
-  <polygon points="640,14 654,28 640,42 626,28" fill="{t['accent']}" opacity="0.85">
-    <animate attributeName="opacity" values="0.6;1;0.6" dur="2.8s" repeatCount="indefinite"/>
-  </polygon>
-</svg>
-'''
-
-
-def accent_pulse(theme: str) -> str:
-    t = THEMES[theme]
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <line x1="200" y1="28" x2="560" y2="28" stroke="{t['line']}" stroke-width="1"/>
-  <line x1="720" y1="28" x2="1080" y2="28" stroke="{t['line']}" stroke-width="1"/>
-  <circle cx="640" cy="28" r="5" fill="{t['accent']}">
-    <animate attributeName="r" values="4;7;4" dur="2.8s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="640" cy="28" r="14" fill="none" stroke="{t['leaf']}" stroke-width="1" opacity="0.4">
-    <animate attributeName="r" values="10;20;10" dur="2.8s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.45;0.05;0.45" dur="2.8s" repeatCount="indefinite"/>
-  </circle>
-</svg>
-'''
+    return _prompt_bar(theme, "ls ~/projects")
 
 
 def accent_constellation(theme: str) -> str:
-    t = THEMES[theme]
-    hubs = [(520, 22), (580, 38), (640, 16), (700, 36), (760, 20), (620, 40)]
-    links = [(0, 1), (1, 2), (2, 3), (3, 4), (1, 5), (2, 5), (3, 5)]
-    parts = []
-    for i, (a, b) in enumerate(links):
-        x1, y1 = hubs[a]
-        x2, y2 = hubs[b]
-        parts.append(f'''  <line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{t['accent2']}" stroke-width="1" opacity="0.25">
-    <animate attributeName="opacity" values="0.1;0.55;0.1" dur="3.5s" begin="{i * 0.3}s" repeatCount="indefinite"/>
-  </line>''')
-    for i, (x, y) in enumerate(hubs):
-        parts.append(f'''  <circle cx="{x}" cy="{y}" r="2.8" fill="{t['accent']}" opacity="0.6">
-    <animate attributeName="opacity" values="0.3;1;0.3" dur="2.6s" begin="{i * 0.2}s" repeatCount="indefinite"/>
-  </circle>''')
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-{chr(10).join(parts)}
-</svg>
-'''
+    return _prompt_bar(theme, "which stack")
 
 
 def accent_school(theme: str) -> str:
-    t = THEMES[theme]
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <circle cx="560" cy="28" r="6" fill="{t['accent']}">
-    <animate attributeName="cx" values="540;560;540" dur="5s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="720" cy="28" r="6" fill="#500000" opacity="0.85">
-    <animate attributeName="cx" values="740;720;740" dur="5s" repeatCount="indefinite"/>
-  </circle>
-  <path d="M570,28 Q640,8 710,28" fill="none" stroke="{t['accent2']}" stroke-width="1.3" stroke-dasharray="6 6" opacity="0.6">
-    <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="2s" repeatCount="indefinite"/>
-  </path>
-  <text x="560" y="50" text-anchor="middle" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="8">@cael1127</text>
-  <text x="720" y="50" text-anchor="middle" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="8">@caelf-hub</text>
-</svg>
-'''
+    return _prompt_bar(theme, "git remote -v")
+
+
+def accent_pulse(theme: str) -> str:
+    return _prompt_bar(theme, "git status --short")
+
+
+def accent_connect(theme: str) -> str:
+    return _prompt_bar(theme, "open mailto:caelfindley@gmail.com")
 
 
 ACCENTS = {
     "bridge": accent_bridge,
-    "wave": accent_wave,
-    "orbit": accent_orbit,
-    "pulse": accent_pulse,
-    "constellation": accent_constellation,
-    "school": accent_school,
+    "focus": accent_wave,
+    "work": accent_orbit,
+    "stack": accent_constellation,
+    "remote": accent_school,
+    "status": accent_pulse,
+    "connect": accent_connect,
 }
 
 
 def main():
     accents_dir = OUT / "accents"
+    ui_dir = OUT / "ui"
     accents_dir.mkdir(exist_ok=True)
+    ui_dir.mkdir(exist_ok=True)
     for theme in ("dark", "light"):
         svg = header_svg(theme)
         (OUT / f"header-{theme}.svg").write_text(svg, encoding="utf-8")
         (OUT / f"banner-{theme}.svg").write_text(svg, encoding="utf-8")
         (OUT / f"session-{theme}.svg").write_text(svg, encoding="utf-8")
         (OUT / f"footer-{theme}.svg").write_text(footer_svg(theme), encoding="utf-8")
+        (OUT / f"foot-{theme}.svg").write_text(footer_svg(theme), encoding="utf-8")
         (OUT / f"bridge-{theme}.svg").write_text(accent_bridge(theme), encoding="utf-8")
         for name, fn in ACCENTS.items():
-            path = accents_dir / f"{name}-{theme}.svg"
-            path.write_text(fn(theme), encoding="utf-8")
-            print(f"{path.name}: ok")
+            content = fn(theme)
+            (accents_dir / f"{name}-{theme}.svg").write_text(content, encoding="utf-8")
+            (ui_dir / f"{name}-{theme}.svg").write_text(content, encoding="utf-8")
+            print(f"ui/{name}-{theme}.svg")
         print(f"session-{theme}: {len(svg)} chars")
 
 

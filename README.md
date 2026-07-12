@@ -10,9 +10,9 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-dark.svg?v=editorial1">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-light.svg?v=editorial1">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-light.svg?v=editorial1" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/bridge-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/bridge-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/bridge-light.svg" alt="" width="100%">
   </picture>
 </p>
 
@@ -33,102 +33,153 @@
   </a>
 </p>
 
----
-
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-dark.svg?v=editorial1">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-light.svg?v=editorial1">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-light.svg?v=editorial1" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/focus-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/focus-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/focus-light.svg" alt="" width="100%">
   </picture>
 </p>
 
-### What I'm drawn to
+## Focus
 
-| | |
-|:--|:--|
-| **Intelligence systems** | Planning engines, LLM workflows, RAG |
-| **Product engineering** | Web, mobile, and shipping to production |
-| **Systems craft** | Low-level tooling, emulators, performance |
+<div align="center">
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-dark.svg?v=editorial1">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-light.svg?v=editorial1">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-light.svg?v=editorial1" alt="" width="100%">
-  </picture>
-</p>
+| Path | Notes |
+|:-----|:------|
+| ~/ai | Planning engines, LLM workflows, RAG |
+| ~/product | Web, mobile, shipping to production |
+| ~/systems | Low-level tooling, emulators, performance |
 
-### Selected work
-
-**[AI College Planner](https://github.com/cael1127/boltPlanner)** — LLM scheduling for academic planning  
-TypeScript · full-stack · LLMs
-
-**[Oyster Management Platform](https://github.com/cael1127/aquaFarm)** — production aquaculture ops  
-React · Expo · Supabase
-
-**[Portfolio](https://findley.netlify.app/)** — site and project showcase  
-TypeScript · design systems
-
-**[EmulatorRS](https://github.com/cael1127/EmulatorRS)** · **[ACF](https://github.com/cael1127/ACF)** — systems experiments  
-Python · C
-
-**[AI_ACF](https://github.com/cael1127/AI_ACF)** · **[Ai_Projects](https://github.com/cael1127/Ai_Projects)** — applied ML prototypes  
-Python · transformers · RAG
+</div>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-dark.svg?v=editorial1">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-light.svg?v=editorial1">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-light.svg?v=editorial1" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/work-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/work-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/work-light.svg" alt="" width="100%">
   </picture>
 </p>
 
-### Tools I reach for
+## Projects
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/cael1127/boltPlanner">boltPlanner</a></h3>
+      <p>LLM-powered college scheduling engine.</p>
+      <p>
+        <img src="https://img.shields.io/badge/TypeScript-047857?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript"/>
+        <img src="https://img.shields.io/badge/LLMs-0d1117?style=flat-square" alt="LLMs"/>
+      </p>
+    </td>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/cael1127/aquaFarm">aquaFarm</a></h3>
+      <p>Production ops platform for aquaculture.</p>
+      <p>
+        <img src="https://img.shields.io/badge/React-047857?style=flat-square&logo=react&logoColor=white" alt="React"/>
+        <img src="https://img.shields.io/badge/Expo-0d1117?style=flat-square&logo=expo&logoColor=white" alt="Expo"/>
+        <img src="https://img.shields.io/badge/Supabase-3FCF8E?style=flat-square&logo=supabase&logoColor=black" alt="Supabase"/>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><a href="https://findley.netlify.app/">Portfolio</a></h3>
+      <p>Personal site and project showcase.</p>
+      <p>
+        <img src="https://img.shields.io/badge/TypeScript-047857?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript"/>
+        <img src="https://img.shields.io/badge/Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white" alt="Netlify"/>
+      </p>
+    </td>
+    <td width="50%" valign="top">
+      <h3><a href="https://github.com/cael1127/EmulatorRS">EmulatorRS</a> · <a href="https://github.com/cael1127/ACF">ACF</a></h3>
+      <p>Systems experiments and tooling.</p>
+      <p>
+        <img src="https://img.shields.io/badge/Python-047857?style=flat-square&logo=python&logoColor=white" alt="Python"/>
+        <img src="https://img.shields.io/badge/C-0d1117?style=flat-square&logo=c&logoColor=white" alt="C"/>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top">
+      <h3><a href="https://github.com/cael1127/AI_ACF">AI_ACF</a> · <a href="https://github.com/cael1127/Ai_Projects">Ai_Projects</a></h3>
+      <p>Applied ML prototypes — transformers, RAG, and research experiments.</p>
+      <p>
+        <img src="https://img.shields.io/badge/Python-047857?style=flat-square&logo=python&logoColor=white" alt="Python"/>
+        <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white" alt="PyTorch"/>
+        <img src="https://img.shields.io/badge/RAG-0d1117?style=flat-square" alt="RAG"/>
+      </p>
+    </td>
+  </tr>
+</table>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript"/>
-  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"/>
-  <img src="https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white" alt="Java"/>
-  <img src="https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=white" alt="Rust"/>
-  <img src="https://img.shields.io/badge/C%2FC%2B%2B-00599C?style=flat-square&logo=c&logoColor=white" alt="C/C++"/>
-  <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React"/>
-  <img src="https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white" alt="Next.js"/>
-  <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js"/>
-  <img src="https://img.shields.io/badge/Supabase-3FCF8E?style=flat-square&logo=supabase&logoColor=black" alt="Supabase"/>
-  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white" alt="PyTorch"/>
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker"/>
-  <img src="https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white" alt="AWS"/>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/stack-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/stack-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/stack-light.svg" alt="" width="100%">
+  </picture>
+</p>
+
+## Stack
+
+<p align="center">
+  <strong>Languages</strong><br/>
+  <img src="https://img.shields.io/badge/TypeScript-047857?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java"/>
+  <img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white" alt="Rust"/>
+  <img src="https://img.shields.io/badge/C%2FC%2B%2B-00599C?style=for-the-badge&logo=c&logoColor=white" alt="C/C++"/>
+</p>
+
+<p align="center">
+  <strong>Product</strong><br/>
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"/>
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js"/>
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js"/>
+  <img src="https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white" alt="Expo"/>
+  <img src="https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=black" alt="Supabase"/>
+</p>
+
+<p align="center">
+  <strong>AI &amp; Cloud</strong><br/>
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch"/>
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
+  <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonwebservices&logoColor=white" alt="AWS"/>
+  <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions"/>
 </p>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-dark.svg?v=editorial1">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-light.svg?v=editorial1">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-light.svg?v=editorial1" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/remote-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/remote-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/remote-light.svg" alt="" width="100%">
   </picture>
 </p>
 
-### Two homes on GitHub
+## Remotes
 
-This account (**@cael1127**) is the main public body of work.  
-School and academic context lives on **[@caelf-hub](https://github.com/caelf-hub)**.
+<p align="center">
+  <code>origin</code> → <strong>@cael1127</strong> (this profile — main body of work)<br/>
+  <code>school</code> → <strong><a href="https://github.com/caelf-hub">@caelf-hub</a></strong> (academic / school context)
+</p>
 
 <p align="center">
   <a href="https://github.com/caelf-hub">
-    <img src="https://img.shields.io/badge/Open_school_profile-500000?style=for-the-badge&logo=github&logoColor=white" alt="School profile"/>
+    <img src="https://img.shields.io/badge/ssh_caelf--hub-500000?style=for-the-badge&logo=github&logoColor=white" alt="School GitHub"/>
   </a>
 </p>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-dark.svg?v=editorial1">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-light.svg?v=editorial1">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-light.svg?v=editorial1" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/status-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/status-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/status-light.svg" alt="" width="100%">
   </picture>
 </p>
 
-### Elsewhere
+## Status
 
 <p align="center">
   <strong>Software Developer</strong> · shipping full-stack product work<br/>
@@ -156,12 +207,37 @@ School and academic context lives on **[@caelf-hub](https://github.com/caelf-hub
   </picture>
 </p>
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/connect-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/connect-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/connect-light.svg" alt="" width="100%">
+  </picture>
+</p>
+
+## Connect
+
+<p align="center">
+  <a href="https://findley.netlify.app/">
+    <img src="https://img.shields.io/badge/Portfolio-047857?style=for-the-badge&logo=netlify&logoColor=white" alt="Portfolio"/>
+  </a>
+  <a href="mailto:caelfindley@gmail.com">
+    <img src="https://img.shields.io/badge/Email-0d1117?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/>
+  </a>
+  <a href="https://github.com/caelf-hub">
+    <img src="https://img.shields.io/badge/School-500000?style=for-the-badge&logo=github&logoColor=white" alt="School"/>
+  </a>
+  <a href="https://instagram.com/caelfindley">
+    <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram"/>
+  </a>
+</p>
+
 <br/>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-dark.svg?v=editorial1">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-light.svg?v=editorial1">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-light.svg?v=editorial1" alt="Footer" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/foot-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/foot-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/foot-light.svg" alt="session complete" width="100%">
   </picture>
 </p>
