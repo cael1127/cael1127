@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 52" width="1280" height="52" role="img" aria-hidden="true">
-  <rect x="240" y="8" width="800" height="36" rx="8" fill="#f3f7f2" stroke="#c5d4c5" stroke-width="1"/>
-  <text x="264" y="32" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14">
-    <tspan fill="#047857">$</tspan><tspan fill="#14201a"> git status --short</tspan>
-  </text>
-  <rect x="433" y="18" width="8" height="16" fill="#047857">
-    <animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite"/>
-  </rect>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 72" width="1280" height="72" role="img" aria-hidden="true">
+  <rect x="160" y="6" width="960" height="60" rx="10" fill="#f3f7f2" stroke="#c5d4c5" stroke-width="1"/>
+  <text x="184" y="40" fill="#047857" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13">$ git status</text>
+  <g>
+    <circle cx="340" cy="36" r="9" fill="none" stroke="#c5d4c5" stroke-width="2"/>
+    <path d="M336,36 L339,39 L345,32" fill="none" stroke="#047857" stroke-width="2" stroke-linecap="round" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.10;0.20;0.85;1" dur="5s" repeatCount="indefinite"/>
+    </path>
+    <text x="340" y="58" text-anchor="middle" fill="#6b7c70" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">build</text>
+  </g>
+  <g>
+    <circle cx="520" cy="36" r="9" fill="none" stroke="#c5d4c5" stroke-width="2"/>
+    <path d="M516,36 L519,39 L525,32" fill="none" stroke="#047857" stroke-width="2" stroke-linecap="round" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.25;0.35;0.85;1" dur="5s" repeatCount="indefinite"/>
+    </path>
+    <text x="520" y="58" text-anchor="middle" fill="#6b7c70" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">tests</text>
+  </g>
+  <g>
+    <circle cx="700" cy="36" r="9" fill="none" stroke="#c5d4c5" stroke-width="2"/>
+    <path d="M696,36 L699,39 L705,32" fill="none" stroke="#047857" stroke-width="2" stroke-linecap="round" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.40;0.50;0.85;1" dur="5s" repeatCount="indefinite"/>
+    </path>
+    <text x="700" y="58" text-anchor="middle" fill="#6b7c70" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">ship</text>
+  </g>
+  <g>
+    <circle cx="880" cy="36" r="9" fill="none" stroke="#c5d4c5" stroke-width="2"/>
+    <path d="M876,36 L879,39 L885,32" fill="none" stroke="#047857" stroke-width="2" stroke-linecap="round" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.55;0.65;0.85;1" dur="5s" repeatCount="indefinite"/>
+    </path>
+    <text x="880" y="58" text-anchor="middle" fill="#6b7c70" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10">docs</text>
+  </g>
 </svg>

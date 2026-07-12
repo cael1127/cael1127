@@ -10,9 +10,9 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/bridge-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/bridge-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/bridge-light.svg" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/bridge-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/bridge-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/bridge-light.svg" alt="" width="100%">
   </picture>
 </p>
 
@@ -35,13 +35,13 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/focus-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/focus-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/focus-light.svg" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/focus-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/focus-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/focus-light.svg" alt="" width="100%">
   </picture>
 </p>
 
-## Focus
+<h2 align="center">Focus</h2>
 
 <div align="center">
 
@@ -55,17 +55,18 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/work-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/work-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/work-light.svg" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/work-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/work-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/work-light.svg" alt="" width="100%">
   </picture>
 </p>
 
-## Projects
+<h2 align="center">Projects</h2>
 
+<div align="center">
 <table>
   <tr>
-    <td width="50%" valign="top">
+    <td width="50%" align="center" valign="top">
       <h3><a href="https://github.com/cael1127/boltPlanner">boltPlanner</a></h3>
       <p>LLM-powered college scheduling engine.</p>
       <p>
@@ -73,7 +74,7 @@
         <img src="https://img.shields.io/badge/LLMs-0d1117?style=flat-square" alt="LLMs"/>
       </p>
     </td>
-    <td width="50%" valign="top">
+    <td width="50%" align="center" valign="top">
       <h3><a href="https://github.com/cael1127/aquaFarm">aquaFarm</a></h3>
       <p>Production ops platform for aquaculture.</p>
       <p>
@@ -84,7 +85,7 @@
     </td>
   </tr>
   <tr>
-    <td width="50%" valign="top">
+    <td width="50%" align="center" valign="top">
       <h3><a href="https://findley.netlify.app/">Portfolio</a></h3>
       <p>Personal site and project showcase.</p>
       <p>
@@ -92,7 +93,7 @@
         <img src="https://img.shields.io/badge/Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white" alt="Netlify"/>
       </p>
     </td>
-    <td width="50%" valign="top">
+    <td width="50%" align="center" valign="top">
       <h3><a href="https://github.com/cael1127/EmulatorRS">EmulatorRS</a> · <a href="https://github.com/cael1127/ACF">ACF</a></h3>
       <p>Systems experiments and tooling.</p>
       <p>
@@ -102,7 +103,7 @@
     </td>
   </tr>
   <tr>
-    <td colspan="2" valign="top">
+    <td colspan="2" align="center" valign="top">
       <h3><a href="https://github.com/cael1127/AI_ACF">AI_ACF</a> · <a href="https://github.com/cael1127/Ai_Projects">Ai_Projects</a></h3>
       <p>Applied ML prototypes — transformers, RAG, and research experiments.</p>
       <p>
@@ -113,16 +114,17 @@
     </td>
   </tr>
 </table>
+</div>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/stack-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/stack-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/stack-light.svg" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/stack-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/stack-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/stack-light.svg" alt="" width="100%">
   </picture>
 </p>
 
-## Stack
+<h2 align="center">Stack</h2>
 
 <p align="center">
   <strong>Languages</strong><br/>
@@ -152,13 +154,13 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/remote-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/remote-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/remote-light.svg" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/remote-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/remote-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/remote-light.svg" alt="" width="100%">
   </picture>
 </p>
 
-## Remotes
+<h2 align="center">Remotes</h2>
 
 <p align="center">
   <code>origin</code> → <strong>@cael1127</strong> (this profile — main body of work)<br/>
@@ -173,13 +175,13 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/status-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/status-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/status-light.svg" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/status-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/status-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/status-light.svg" alt="" width="100%">
   </picture>
 </p>
 
-## Status
+<h2 align="center">Status</h2>
 
 <p align="center">
   <strong>Software Developer</strong> · shipping full-stack product work<br/>
@@ -209,13 +211,13 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/connect-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/connect-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/ui/connect-light.svg" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/connect-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/connect-light.svg">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/chrome/connect-light.svg" alt="" width="100%">
   </picture>
 </p>
 
-## Connect
+<h2 align="center">Connect</h2>
 
 <p align="center">
   <a href="https://findley.netlify.app/">

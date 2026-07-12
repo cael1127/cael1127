@@ -174,53 +174,172 @@ def footer_svg(theme: str) -> str:
 '''
 
 
-def _prompt_bar(theme: str, command: str, height: int = 52) -> str:
-    """Shared CLI prompt strip used as section chrome."""
+def _term_colors(theme: str):
     t = THEMES[theme]
     if theme == "dark":
-        bg, border, prompt, text = "#0c1210", "#2d4a38", "#86efac", "#d8e8d8"
-    else:
-        bg, border, prompt, text = "#f3f7f2", "#c5d4c5", "#047857", "#14201a"
-    safe = command.replace("&", "&amp;")
+        return {
+            **t,
+            "term_bg": "#0c1210",
+            "term_border": "#2d4a38",
+            "prompt": "#86efac",
+            "cmd": "#e8f0e8",
+            "out": "#a3b18a",
+            "muted": "#6b7c70",
+        }
+    return {
+        **t,
+        "term_bg": "#f3f7f2",
+        "term_border": "#c5d4c5",
+        "prompt": "#047857",
+        "cmd": "#14201a",
+        "out": "#52796f",
+        "muted": "#6b7c70",
+    }
+
+
+def accent_bridge(theme: str) -> str:
+    """Boot progress — session coming online."""
+    c = _term_colors(theme)
     return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 {height}" width="1280" height="{height}" role="img" aria-hidden="true">
-  <rect x="240" y="8" width="800" height="36" rx="8" fill="{bg}" stroke="{border}" stroke-width="1"/>
-  <text x="264" y="32" font-family="{FONT_MONO}" font-size="14">
-    <tspan fill="{prompt}">$</tspan><tspan fill="{text}"> {safe}</tspan>
-  </text>
-  <rect x="{(264 + 18 + len(command) * 8.4):.0f}" y="18" width="8" height="16" fill="{prompt}">
-    <animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 72" width="1280" height="72" role="img" aria-hidden="true">
+  <rect x="200" y="10" width="880" height="52" rx="10" fill="{c['term_bg']}" stroke="{c['term_border']}" stroke-width="1"/>
+  <text x="224" y="32" fill="{c['prompt']}" font-family="{FONT_MONO}" font-size="13">booting session…</text>
+  <rect x="224" y="42" width="700" height="8" rx="4" fill="{c['term_border']}" opacity="0.5"/>
+  <rect x="224" y="42" width="0" height="8" rx="4" fill="{c['prompt']}">
+    <animate attributeName="width" values="80;420;700;700;80" keyTimes="0;0.35;0.55;0.85;1" dur="4.5s" repeatCount="indefinite"/>
   </rect>
+  <text x="940" y="48" text-anchor="end" fill="{c['out']}" font-family="{FONT_MONO}" font-size="12">
+    <animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite"/>
+    ready
+  </text>
 </svg>
 '''
 
 
-def accent_bridge(theme: str) -> str:
-    return _prompt_bar(theme, "ready")
-
-
 def accent_wave(theme: str) -> str:
-    return _prompt_bar(theme, "cd ~/focus")
+    """Focus — paths lighting up one by one like a directory walk."""
+    c = _term_colors(theme)
+    paths = [("~/ai", 320), ("~/product", 520), ("~/systems", 760)]
+    chips = []
+    for i, (label, x) in enumerate(paths):
+        chips.append(f'''  <g opacity="0.25">
+    <rect x="{x}" y="22" width="140" height="28" rx="6" fill="{c['prompt']}" fill-opacity="0.15" stroke="{c['prompt']}" stroke-width="1"/>
+    <text x="{x + 70}" y="41" text-anchor="middle" fill="{c['cmd']}" font-family="{FONT_MONO}" font-size="12">{label}</text>
+    <animate attributeName="opacity" values="0.25;1;1;0.25" keyTimes="0;0.15;0.55;1" dur="4.2s" begin="{i * 1.2}s" repeatCount="indefinite"/>
+  </g>''')
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 72" width="1280" height="72" role="img" aria-hidden="true">
+  <rect x="160" y="10" width="960" height="52" rx="10" fill="{c['term_bg']}" stroke="{c['term_border']}" stroke-width="1"/>
+  <text x="184" y="42" fill="{c['prompt']}" font-family="{FONT_MONO}" font-size="13">$ cd ~/focus</text>
+{chr(10).join(chips)}
+</svg>
+'''
 
 
 def accent_orbit(theme: str) -> str:
-    return _prompt_bar(theme, "ls ~/projects")
+    """Projects — repo chips lighting in sequence."""
+    c = _term_colors(theme)
+    names = ["boltPlanner", "aquaFarm", "portfolio", "EmulatorRS", "AI_ACF"]
+    chips = []
+    for i, name in enumerate(names):
+        x = 300 + i * 170
+        chips.append(f'''  <g>
+    <rect x="{x}" y="22" width="150" height="28" rx="6" fill="{c['prompt']}" fill-opacity="0.08" stroke="{c['prompt']}" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="{x + 75}" y="41" text-anchor="middle" fill="{c['out']}" font-family="{FONT_MONO}" font-size="12">{name}</text>
+    <animate attributeName="opacity" values="0.3;1;1;0.3" keyTimes="0;0.12;0.55;1" dur="5s" begin="{i * 0.55}s" repeatCount="indefinite"/>
+  </g>''')
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 72" width="1280" height="72" role="img" aria-hidden="true">
+  <rect x="120" y="10" width="1040" height="52" rx="10" fill="{c['term_bg']}" stroke="{c['term_border']}" stroke-width="1"/>
+  <text x="144" y="42" fill="{c['prompt']}" font-family="{FONT_MONO}" font-size="13">$ ls ~/projects</text>
+{chr(10).join(chips)}
+</svg>
+'''
 
 
 def accent_constellation(theme: str) -> str:
-    return _prompt_bar(theme, "which stack")
+    """Stack — install meters filling for each toolchain."""
+    c = _term_colors(theme)
+    tools = [("ts", 280), ("py", 430), ("react", 580), ("torch", 760), ("aws", 940)]
+    bars = []
+    for i, (label, x) in enumerate(tools):
+        bars.append(f'''  <text x="{x}" y="30" fill="{c['muted']}" font-family="{FONT_MONO}" font-size="11">{label}</text>
+  <rect x="{x}" y="38" width="100" height="7" rx="3" fill="{c['term_border']}" opacity="0.45"/>
+  <rect x="{x}" y="38" width="0" height="7" rx="3" fill="{c['prompt']}">
+    <animate attributeName="width" values="0;{60 + (i * 9) % 40};100;100;0" keyTimes="0;0.25;0.45;0.8;1" dur="5s" begin="{i * 0.35}s" repeatCount="indefinite"/>
+  </rect>''')
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 72" width="1280" height="72" role="img" aria-hidden="true">
+  <rect x="140" y="10" width="1000" height="52" rx="10" fill="{c['term_bg']}" stroke="{c['term_border']}" stroke-width="1"/>
+  <text x="164" y="42" fill="{c['prompt']}" font-family="{FONT_MONO}" font-size="13">$ which stack</text>
+{chr(10).join(bars)}
+</svg>
+'''
 
 
 def accent_school(theme: str) -> str:
-    return _prompt_bar(theme, "git remote -v")
+    """Remotes — packet traveling between origin and school."""
+    c = _term_colors(theme)
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 72" width="1280" height="72" role="img" aria-hidden="true">
+  <rect x="180" y="10" width="920" height="52" rx="10" fill="{c['term_bg']}" stroke="{c['term_border']}" stroke-width="1"/>
+  <circle cx="360" cy="36" r="8" fill="{c['prompt']}"/>
+  <text x="380" y="41" fill="{c['cmd']}" font-family="{FONT_MONO}" font-size="12">origin · @cael1127</text>
+  <line x1="560" y1="36" x2="780" y2="36" stroke="{c['term_border']}" stroke-width="2" stroke-dasharray="6 6">
+    <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.2s" repeatCount="indefinite"/>
+  </line>
+  <circle cx="560" cy="36" r="4" fill="{c['prompt']}">
+    <animate attributeName="cx" values="560;780;560" dur="2.8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="820" cy="36" r="8" fill="#500000"/>
+  <text x="840" y="41" fill="{c['cmd']}" font-family="{FONT_MONO}" font-size="12">school · @caelf-hub</text>
+</svg>
+'''
 
 
 def accent_pulse(theme: str) -> str:
-    return _prompt_bar(theme, "git status --short")
+    """Status — checks lighting green like a passing CI."""
+    c = _term_colors(theme)
+    checks = [("build", 340), ("tests", 520), ("ship", 700), ("docs", 880)]
+    rows = []
+    for i, (label, x) in enumerate(checks):
+        rows.append(f'''  <g>
+    <circle cx="{x}" cy="36" r="9" fill="none" stroke="{c['term_border']}" stroke-width="2"/>
+    <path d="M{x - 4},{36} L{x - 1},{39} L{x + 5},{32}" fill="none" stroke="{c['prompt']}" stroke-width="2" stroke-linecap="round" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;{0.1 + i * 0.15:.2f};{0.2 + i * 0.15:.2f};0.85;1" dur="5s" repeatCount="indefinite"/>
+    </path>
+    <text x="{x}" y="58" text-anchor="middle" fill="{c['muted']}" font-family="{FONT_MONO}" font-size="10">{label}</text>
+  </g>''')
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 72" width="1280" height="72" role="img" aria-hidden="true">
+  <rect x="160" y="6" width="960" height="60" rx="10" fill="{c['term_bg']}" stroke="{c['term_border']}" stroke-width="1"/>
+  <text x="184" y="40" fill="{c['prompt']}" font-family="{FONT_MONO}" font-size="13">$ git status</text>
+{chr(10).join(rows)}
+</svg>
+'''
 
 
 def accent_connect(theme: str) -> str:
-    return _prompt_bar(theme, "open mailto:caelfindley@gmail.com")
+    """Connect — inbox ping / reply pulse."""
+    c = _term_colors(theme)
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 72" width="1280" height="72" role="img" aria-hidden="true">
+  <rect x="220" y="10" width="840" height="52" rx="10" fill="{c['term_bg']}" stroke="{c['term_border']}" stroke-width="1"/>
+  <text x="248" y="42" fill="{c['prompt']}" font-family="{FONT_MONO}" font-size="13">$ open contacts</text>
+  <g transform="translate(520,20)">
+    <rect width="36" height="28" rx="4" fill="none" stroke="{c['prompt']}" stroke-width="1.5"/>
+    <path d="M2,4 L18,16 L34,4" fill="none" stroke="{c['prompt']}" stroke-width="1.5"/>
+    <circle cx="30" cy="6" r="4" fill="{c['prompt']}">
+      <animate attributeName="opacity" values="1;0.2;1" dur="1.4s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="3;5;3" dur="1.4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <text x="580" y="42" fill="{c['out']}" font-family="{FONT_MONO}" font-size="13">portfolio · email · school · ig</text>
+  <rect x="980" y="26" width="8" height="16" fill="{c['prompt']}">
+    <animate attributeName="opacity" values="1;0;1" dur="1.05s" repeatCount="indefinite"/>
+  </rect>
+</svg>
+'''
 
 
 ACCENTS = {
@@ -237,21 +356,24 @@ ACCENTS = {
 def main():
     accents_dir = OUT / "accents"
     ui_dir = OUT / "ui"
-    accents_dir.mkdir(exist_ok=True)
-    ui_dir.mkdir(exist_ok=True)
+    chrome_dir = OUT / "chrome"
+    for d in (accents_dir, ui_dir, chrome_dir):
+        d.mkdir(exist_ok=True)
     for theme in ("dark", "light"):
         svg = header_svg(theme)
         (OUT / f"header-{theme}.svg").write_text(svg, encoding="utf-8")
         (OUT / f"banner-{theme}.svg").write_text(svg, encoding="utf-8")
         (OUT / f"session-{theme}.svg").write_text(svg, encoding="utf-8")
-        (OUT / f"footer-{theme}.svg").write_text(footer_svg(theme), encoding="utf-8")
-        (OUT / f"foot-{theme}.svg").write_text(footer_svg(theme), encoding="utf-8")
+        foot = footer_svg(theme)
+        (OUT / f"footer-{theme}.svg").write_text(foot, encoding="utf-8")
+        (OUT / f"foot-{theme}.svg").write_text(foot, encoding="utf-8")
         (OUT / f"bridge-{theme}.svg").write_text(accent_bridge(theme), encoding="utf-8")
         for name, fn in ACCENTS.items():
             content = fn(theme)
             (accents_dir / f"{name}-{theme}.svg").write_text(content, encoding="utf-8")
             (ui_dir / f"{name}-{theme}.svg").write_text(content, encoding="utf-8")
-            print(f"ui/{name}-{theme}.svg")
+            (chrome_dir / f"{name}-{theme}.svg").write_text(content, encoding="utf-8")
+            print(f"chrome/{name}-{theme}.svg")
         print(f"session-{theme}: {len(svg)} chars")
 
 
