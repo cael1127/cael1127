@@ -1,15 +1,16 @@
-# Design tokens — Personal profile (aurora / orbit editorial)
+# Design tokens — Personal profile (sage / emerald)
 
 ## Brand
-ACCENT_DARK = #5eead4
-ACCENT_LIGHT = #0f766e
-ACCENT2 = #67e8f9 / #0891b2
-SCHOOL_BADGE = #500000  (maroon only on school link)
-
-## Mood
-Editorial serif wordmark, soft aurora washes, orbital rings, sine waves, starfield.
-Intentionally NOT the school circuit/grid/rail system.
+ACCENT_DARK  = #86efac   (soft emerald)
+ACCENT_LIGHT = #047857   (deep emerald)
+SAGE_DARK    = #a3b18a
+SAGE_LIGHT   = #52796f
+LEAF         = #4ade80 / #059669
 
 ## Surfaces
 Dark bg0 = #0d1117 (GitHub canvas)
 Light bg0 = #ffffff
+Soft wash = #101612 / #f5f7f3
+
+## Banner motif
+Sage mist + emerald light shafts + floating leaf cluster + gem core

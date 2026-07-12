@@ -1,77 +1,76 @@
 #!/usr/bin/env python3
-"""Generate distinct SMIL SVG assets for cael1127 — aurora/orbit editorial (not school circuit)."""
+"""Generate sage/emerald SMIL SVG assets for cael1127 personal profile."""
 
 from pathlib import Path
-from math import cos, sin, pi
+from math import sin, pi
 
 OUT = Path(__file__).resolve().parent
 FONT_UI = "Georgia, 'Times New Roman', Times, serif"
 FONT_SANS = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
 FONT_MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
 
-# Aurora editorial — teal + slate (distinct from Aggie maroon and prior steel clone)
+# Sage / emerald — tuned for GitHub light & dark canvases
 THEMES = {
     "dark": {
         "bg0": "#0d1117",
-        "bg1": "#0f1419",
-        "ink": "#f0f4f8",
-        "muted": "#9fb0c0",
-        "faint": "#6b7c8c",
-        "accent": "#5eead4",
-        "accent2": "#67e8f9",
-        "glow": "#134e4a",
-        "orbit": "#2dd4bf",
-        "wave": "#5eead4",
-        "star": "#ccfbf1",
-        "line": "#1e3a3a",
-        "soft": "#164e63",
+        "bg1": "#101612",
+        "ink": "#ecf2ec",
+        "muted": "#a8b5a8",
+        "faint": "#7a8a7a",
+        "accent": "#86efac",       # soft emerald
+        "accent2": "#a3b18a",      # sage
+        "deep": "#14532d",
+        "glow": "#1a3d2a",
+        "mist": "#243528",
+        "leaf": "#4ade80",
+        "line": "#2d4a38",
+        "soft": "#365314",
     },
     "light": {
         "bg0": "#ffffff",
-        "bg1": "#f7fafb",
-        "ink": "#0f172a",
-        "muted": "#475569",
-        "faint": "#64748b",
-        "accent": "#0f766e",
-        "accent2": "#0891b2",
-        "glow": "#ccfbf1",
-        "orbit": "#0d9488",
-        "wave": "#14b8a6",
-        "star": "#0f766e",
-        "line": "#cfe8e4",
-        "soft": "#99f6e4",
+        "bg1": "#f5f7f3",
+        "ink": "#14201a",
+        "muted": "#4a5c50",
+        "faint": "#6b7c70",
+        "accent": "#047857",       # deep emerald
+        "accent2": "#52796f",      # sage
+        "deep": "#065f46",
+        "glow": "#d8e8d8",
+        "mist": "#e8efe6",
+        "leaf": "#059669",
+        "line": "#c5d4c5",
+        "soft": "#bbf7d0",
     },
 }
 
 
-def aurora_defs(t: dict, w: int = 1280, h: int = 400) -> str:
+def banner_defs(t: dict, w: int = 1280, h: int = 380) -> str:
     return f'''  <defs>
-    <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="ground" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="{t['bg0']}"/>
-      <stop offset="50%" stop-color="{t['bg1']}"/>
+      <stop offset="45%" stop-color="{t['bg1']}"/>
       <stop offset="100%" stop-color="{t['bg0']}"/>
     </linearGradient>
-    <radialGradient id="auroraA" cx="28%" cy="40%" r="42%">
-      <stop offset="0%" stop-color="{t['glow']}" stop-opacity="0.85"/>
+    <radialGradient id="sageMist" cx="22%" cy="55%" r="50%">
+      <stop offset="0%" stop-color="{t['glow']}" stop-opacity="0.9"/>
       <stop offset="100%" stop-color="{t['bg0']}" stop-opacity="0"/>
-      <animate attributeName="cx" values="28%;34%;24%;28%" dur="22s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="40%;32%;46%;40%" dur="22s" repeatCount="indefinite"/>
+      <animate attributeName="cx" values="22%;28%;18%;22%" dur="20s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="55%;48%;60%;55%" dur="20s" repeatCount="indefinite"/>
     </radialGradient>
-    <radialGradient id="auroraB" cx="72%" cy="55%" r="38%">
-      <stop offset="0%" stop-color="{t['soft']}" stop-opacity="0.55"/>
+    <radialGradient id="emeraldGlow" cx="78%" cy="35%" r="40%">
+      <stop offset="0%" stop-color="{t['deep']}" stop-opacity="0.55"/>
       <stop offset="100%" stop-color="{t['bg0']}" stop-opacity="0"/>
-      <animate attributeName="cx" values="72%;66%;78%;72%" dur="26s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="55%;62%;48%;55%" dur="26s" repeatCount="indefinite"/>
+      <animate attributeName="cx" values="78%;72%;82%;78%" dur="24s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="12s" repeatCount="indefinite"/>
     </radialGradient>
-    <radialGradient id="auroraC" cx="50%" cy="20%" r="30%">
-      <stop offset="0%" stop-color="{t['accent2']}" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="{t['bg0']}" stop-opacity="0"/>
-      <animate attributeName="opacity" values="0.5;1;0.5" dur="10s" repeatCount="indefinite"/>
-    </radialGradient>
+    <linearGradient id="shaft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="{t['accent']}" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="{t['accent']}" stop-opacity="0"/>
+    </linearGradient>
     <linearGradient id="fadeY" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="white" stop-opacity="0"/>
-      <stop offset="10%" stop-color="white" stop-opacity="1"/>
-      <stop offset="78%" stop-color="white" stop-opacity="1"/>
+      <stop offset="9%" stop-color="white" stop-opacity="1"/>
+      <stop offset="80%" stop-color="white" stop-opacity="1"/>
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </linearGradient>
     <mask id="pageBlend" maskUnits="userSpaceOnUse" x="0" y="0" width="{w}" height="{h}">
@@ -81,98 +80,113 @@ def aurora_defs(t: dict, w: int = 1280, h: int = 400) -> str:
 '''
 
 
-def stars_layer(t: dict, count: int = 48, h: int = 400) -> str:
-    lines = [f'  <g fill="{t["star"]}">']
+def light_shafts(t: dict) -> str:
+    shafts = []
+    for i, x in enumerate([920, 980, 1040, 1100, 1160]):
+        w = 18 + (i % 3) * 6
+        delay = i * 0.8
+        shafts.append(f'''  <rect x="{x}" y="0" width="{w}" height="380" fill="url(#shaft)" opacity="0.35">
+    <animate attributeName="opacity" values="0.15;0.45;0.15" dur="7s" begin="{delay}s" repeatCount="indefinite"/>
+    <animate attributeName="x" values="{x};{x + 8};{x}" dur="9s" begin="{delay}s" repeatCount="indefinite"/>
+  </rect>''')
+    return "\n".join(shafts) + "\n"
+
+
+def leaf_cluster(t: dict) -> str:
+    """Abstract leaf / petal geometry on the right — new banner motif."""
+    # leaf path template (pointy oval)
+    leaves = [
+        # (cx, cy, scale, rot, dur, delay)
+        (1020, 120, 1.0, -25, 8, 0),
+        (1085, 165, 0.85, 15, 9, 0.5),
+        (1140, 125, 0.7, -40, 7.5, 1.0),
+        (1005, 210, 0.9, 30, 10, 0.3),
+        (1110, 230, 0.75, -10, 8.5, 1.2),
+        (1180, 190, 0.65, 45, 9.5, 0.7),
+        (1060, 280, 0.8, 5, 8, 1.5),
+        (980, 160, 0.55, -55, 11, 0.2),
+    ]
+    parts = ['  <g fill="none" stroke-linejoin="round">']
+    for i, (cx, cy, s, rot, dur, delay) in enumerate(leaves):
+        # simple leaf: elliptical diamond
+        w, h = 28 * s, 48 * s
+        color = t["leaf"] if i % 2 == 0 else t["accent2"]
+        op = 0.35 + (i % 4) * 0.08
+        parts.append(f'''    <g transform="translate({cx},{cy})">
+      <g>
+        <animateTransform attributeName="transform" type="rotate" values="{rot};{rot + 8};{rot}" dur="{dur}s" begin="{delay}s" repeatCount="indefinite"/>
+        <ellipse cx="0" cy="0" rx="{w:.1f}" ry="{h:.1f}" fill="{color}" fill-opacity="{op:.2f}" stroke="{t['accent']}" stroke-opacity="0.45" stroke-width="1.1">
+          <animate attributeName="fill-opacity" values="{op:.2f};{min(op + 0.2, 0.7):.2f};{op:.2f}" dur="{dur}s" begin="{delay}s" repeatCount="indefinite"/>
+        </ellipse>
+        <line x1="0" y1="{h * 0.7:.1f}" x2="0" y2="{-h * 0.7:.1f}" stroke="{t['accent']}" stroke-opacity="0.35" stroke-width="1"/>
+      </g>
+      <animateTransform attributeName="transform" type="translate" values="0,0; 0,{-6 + i % 3}; 0,0" dur="{dur + 2}s" begin="{delay}s" repeatCount="indefinite"/>
+    </g>''')
+    # emerald gem core
+    parts.append(f'''    <g transform="translate(1070,190)">
+      <polygon points="0,-22 18,0 0,22 -18,0" fill="{t['accent']}" fill-opacity="0.85" stroke="{t['leaf']}" stroke-width="1.2">
+        <animate attributeName="fill-opacity" values="0.65;1;0.65" dur="3.5s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="40s" repeatCount="indefinite"/>
+      </polygon>
+      <circle cx="0" cy="0" r="4" fill="{t['bg0']}" opacity="0.5"/>
+    </g>
+  </g>''')
+    return "\n".join(parts) + "\n"
+
+
+def mist_bands(t: dict) -> str:
+    bands = []
+    for i, y in enumerate([80, 140, 220, 300]):
+        bands.append(f'''  <ellipse cx="{200 + i * 80}" cy="{y}" rx="{180 + i * 40}" ry="{28 + i * 4}" fill="{t['mist']}" opacity="0.35">
+    <animate attributeName="cx" values="{200 + i * 80};{240 + i * 80};{200 + i * 80}" dur="{14 + i * 2}s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.2;0.4;0.2" dur="{8 + i}s" repeatCount="indefinite"/>
+  </ellipse>''')
+    return "\n".join(bands) + "\n"
+
+
+def seed_dots(t: dict, count: int = 36) -> str:
+    lines = [f'  <g fill="{t["accent"]}">']
     for i in range(count):
-        x = (41 * i * i + 17 * i + 53) % 1240 + 20
-        y = (29 * i + 11 * (i % 9) + 7) % (h - 40) + 20
-        r = 0.5 + (i % 4) * 0.35
-        op = 0.15 + (i % 5) * 0.08
-        dur = 3.5 + (i % 7) * 0.55
-        delay = (i % 12) * 0.25
+        x = (37 * i * i + 19 * i + 41) % 700 + 40
+        y = (23 * i + 13 * (i % 5) + 9) % 320 + 30
+        r = 0.8 + (i % 3) * 0.4
+        op = 0.12 + (i % 5) * 0.06
+        dur = 4 + (i % 6) * 0.6
+        delay = (i % 10) * 0.3
         lines.append(f'''    <circle cx="{x}" cy="{y}" r="{r}" opacity="{op:.2f}">
-      <animate attributeName="opacity" values="{op:.2f};{min(op + 0.45, 0.95):.2f};{op:.2f}" dur="{dur:.1f}s" begin="{delay:.1f}s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="{op:.2f};{min(op + 0.4, 0.85):.2f};{op:.2f}" dur="{dur:.1f}s" begin="{delay:.1f}s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0; 0,-8; 0,0" dur="{dur + 3:.1f}s" begin="{delay:.1f}s" repeatCount="indefinite"/>
     </circle>''')
     lines.append("  </g>")
     return "\n".join(lines) + "\n"
 
 
-def orbits_layer(t: dict) -> str:
-    # Right-side orbital system — signature mark, not school circuits
-    cx, cy = 980, 200
-    parts = [f'  <g fill="none" transform="translate(0,0)">']
-    for i, (rx, ry, dur, op) in enumerate(
-        [
-            (90, 90, 28, 0.35),
-            (130, 70, 36, 0.28),
-            (170, 110, 44, 0.2),
-        ]
-    ):
-        parts.append(f'''    <ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" stroke="{t['orbit']}" stroke-width="1.1" opacity="{op}">
-      <animateTransform attributeName="transform" type="rotate" values="0 {cx} {cy}; 360 {cx} {cy}" dur="{dur}s" repeatCount="indefinite"/>
-    </ellipse>''')
-        # satellite dots
-        angle = i * 40
-        parts.append(f'''    <circle cx="{cx + rx}" cy="{cy}" r="3" fill="{t['accent']}" opacity="0.85">
-      <animateTransform attributeName="transform" type="rotate" values="{angle} {cx} {cy}; {angle + 360} {cx} {cy}" dur="{dur * 0.7:.0f}s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" begin="{i * 0.4}s" repeatCount="indefinite"/>
-    </circle>''')
-    parts.append(f'''    <circle cx="{cx}" cy="{cy}" r="8" fill="{t['accent']}" opacity="0.9">
-      <animate attributeName="r" values="7;10;7" dur="4s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="{cx}" cy="{cy}" r="18" fill="none" stroke="{t['accent2']}" stroke-width="1" opacity="0.35">
-      <animate attributeName="r" values="16;24;16" dur="4s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.4;0.08;0.4" dur="4s" repeatCount="indefinite"/>
-    </circle>
-  </g>''')
-    return "\n".join(parts) + "\n"
-
-
-def wave_path(y: int = 320, amp: int = 14, cycles: int = 3) -> str:
-    pts = []
-    for i in range(0, 1281, 8):
-        t = i / 1280 * cycles * 2 * pi
-        pts.append(f"{i},{y + amp * sin(t):.1f}")
-    return "M" + " L".join(pts)
-
-
-def waves_layer(t: dict) -> str:
-    w1 = wave_path(310, 12, 2.5)
-    w2 = wave_path(330, 8, 3.2)
-    return f'''  <g fill="none" stroke-linecap="round">
-    <path d="{w1}" stroke="{t['wave']}" stroke-width="1.5" opacity="0.45" stroke-dasharray="6 10">
-      <animate attributeName="stroke-dashoffset" from="0" to="-80" dur="8s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.25;0.55;0.25" dur="6s" repeatCount="indefinite"/>
-    </path>
-    <path d="{w2}" stroke="{t['accent2']}" stroke-width="1" opacity="0.3" stroke-dasharray="4 12">
-      <animate attributeName="stroke-dashoffset" from="0" to="64" dur="10s" repeatCount="indefinite"/>
-    </path>
-  </g>
-'''
-
-
 def hero_text(t: dict) -> str:
     return f'''  <g>
-    <text x="72" y="88" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="12" font-weight="600" letter-spacing="3.5" opacity="0">
+    <text x="72" y="92" fill="{t['accent2']}" font-family="{FONT_MONO}" font-size="11" font-weight="600" letter-spacing="3.2" opacity="0">
       SOFTWARE DEVELOPER
-      <animate attributeName="opacity" from="0" to="1" begin="0.2s" dur="0.6s" fill="freeze"/>
+      <animate attributeName="opacity" from="0" to="1" begin="0.15s" dur="0.55s" fill="freeze"/>
     </text>
-    <text x="72" y="168" fill="{t['ink']}" font-family="{FONT_UI}" font-size="64" font-weight="400" letter-spacing="-1.2" opacity="0">
+    <text x="72" y="168" fill="{t['ink']}" font-family="{FONT_UI}" font-size="62" font-weight="400" letter-spacing="-1" opacity="0">
       Cael Findley
-      <animate attributeName="opacity" from="0" to="1" begin="0.5s" dur="0.9s" fill="freeze"/>
-      <animateTransform attributeName="transform" type="translate" values="0,16; 0,0" begin="0.5s" dur="0.9s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
+      <animate attributeName="opacity" from="0" to="1" begin="0.4s" dur="0.85s" fill="freeze"/>
+      <animateTransform attributeName="transform" type="translate" values="0,14; 0,0" begin="0.4s" dur="0.85s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.22 1 0.36 1"/>
     </text>
-    <text x="72" y="214" fill="{t['muted']}" font-family="{FONT_SANS}" font-size="17" opacity="0">
+    <text x="72" y="212" fill="{t['muted']}" font-family="{FONT_SANS}" font-size="16" opacity="0">
       AI systems · full-stack products · systems programming
-      <animate attributeName="opacity" from="0" to="1" begin="1.2s" dur="0.7s" fill="freeze"/>
+      <animate attributeName="opacity" from="0" to="1" begin="1.1s" dur="0.65s" fill="freeze"/>
     </text>
-    <text x="72" y="248" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="12" letter-spacing="1.5" opacity="0">
+    <text x="72" y="246" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="11" letter-spacing="1.4" opacity="0">
       Texas A&amp;M CS  ·  @cael1127
-      <animate attributeName="opacity" from="0" to="1" begin="1.6s" dur="0.6s" fill="freeze"/>
+      <animate attributeName="opacity" from="0" to="1" begin="1.5s" dur="0.55s" fill="freeze"/>
     </text>
-    <rect x="72" y="272" width="0" height="2" fill="{t['accent']}" rx="1" opacity="0.9">
-      <animate attributeName="width" from="0" to="180" begin="2.0s" dur="1.1s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1"/>
+    <rect x="72" y="270" width="0" height="2.5" rx="1" fill="{t['accent']}">
+      <animate attributeName="width" from="0" to="160" begin="1.9s" dur="1s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1"/>
     </rect>
+    <text x="72" y="300" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="10" letter-spacing="2.5" opacity="0">
+      SAGE  ·  EMERALD  ·  BUILD
+      <animate attributeName="opacity" from="0" to="0.75" begin="2.2s" dur="0.5s" fill="freeze"/>
+    </text>
   </g>
 '''
 
@@ -180,34 +194,32 @@ def hero_text(t: dict) -> str:
 def header_svg(theme: str) -> str:
     t = THEMES[theme]
     return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" width="1280" height="400" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 380" width="1280" height="380" role="img" aria-labelledby="title desc">
   <title id="title">Cael Findley — Software Developer</title>
-  <desc id="desc">Aurora and orbit animated banner for personal GitHub profile ({theme})</desc>
-{aurora_defs(t, 1280, 400)}  <g mask="url(#pageBlend)">
-  <rect width="1280" height="400" fill="url(#sky)"/>
-  <rect width="1280" height="400" fill="url(#auroraA)"/>
-  <rect width="1280" height="400" fill="url(#auroraB)"/>
-  <rect width="1280" height="400" fill="url(#auroraC)"/>
-{stars_layer(t, 52, 400)}{orbits_layer(t)}{waves_layer(t)}{hero_text(t)}  </g>
+  <desc id="desc">Sage and emerald canopy banner for personal GitHub profile ({theme})</desc>
+{banner_defs(t)}  <g mask="url(#pageBlend)">
+  <rect width="1280" height="380" fill="url(#ground)"/>
+  <rect width="1280" height="380" fill="url(#sageMist)"/>
+  <rect width="1280" height="380" fill="url(#emeraldGlow)"/>
+{mist_bands(t)}{light_shafts(t)}{seed_dots(t)}{leaf_cluster(t)}{hero_text(t)}  </g>
 </svg>
 '''
 
 
 def footer_svg(theme: str) -> str:
     t = THEMES[theme]
-    stars = []
-    for i in range(24):
-        x = 80 + i * 48
-        delay = i * 0.15
-        stars.append(f'''  <circle cx="{x}" cy="56" r="1.4" fill="{t['star']}" opacity="0.25">
-    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="3.2s" begin="{delay}s" repeatCount="indefinite"/>
-    <animate attributeName="cy" values="48;64;48" dur="4.5s" begin="{delay}s" repeatCount="indefinite"/>
+    dots = []
+    for i in range(20):
+        x = 100 + i * 54
+        delay = i * 0.18
+        dots.append(f'''  <circle cx="{x}" cy="52" r="1.5" fill="{t['accent']}" opacity="0.25">
+    <animate attributeName="opacity" values="0.15;0.7;0.15" dur="3.4s" begin="{delay}s" repeatCount="indefinite"/>
   </circle>''')
     return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 100" width="1280" height="100" role="img" aria-labelledby="ft">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 96" width="1280" height="96" role="img" aria-labelledby="ft">
   <title id="ft">Cael Findley — footer</title>
   <defs>
-    <linearGradient id="fsky" x1="0%" y1="0%" x2="100%" y2="0%">
+    <linearGradient id="fground" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="{t['bg0']}"/>
       <stop offset="50%" stop-color="{t['bg1']}"/>
       <stop offset="100%" stop-color="{t['bg0']}"/>
@@ -217,53 +229,77 @@ def footer_svg(theme: str) -> str:
       <stop offset="35%" stop-color="white" stop-opacity="1"/>
       <stop offset="100%" stop-color="white" stop-opacity="1"/>
     </linearGradient>
-    <mask id="ffm" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="100">
-      <rect width="1280" height="100" fill="url(#ffade)"/>
+    <mask id="ffm" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="96">
+      <rect width="1280" height="96" fill="url(#ffade)"/>
     </mask>
   </defs>
   <g mask="url(#ffm)">
-  <rect width="1280" height="100" fill="url(#fsky)"/>
-  <line x1="72" y1="28" x2="1208" y2="28" stroke="{t['accent']}" stroke-width="1" opacity="0.35">
-    <animate attributeName="opacity" values="0.2;0.55;0.2" dur="7s" repeatCount="indefinite"/>
+  <rect width="1280" height="96" fill="url(#fground)"/>
+  <line x1="72" y1="26" x2="1208" y2="26" stroke="{t['accent2']}" stroke-width="1" opacity="0.4">
+    <animate attributeName="opacity" values="0.25;0.55;0.25" dur="7s" repeatCount="indefinite"/>
   </line>
-{chr(10).join(stars)}
-  <text x="72" y="62" fill="{t['ink']}" font-family="{FONT_UI}" font-size="16">Cael Findley</text>
-  <text x="72" y="82" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="10" letter-spacing="2">BUILD WITH INTENT</text>
-  <text x="1208" y="62" text-anchor="end" fill="{t['muted']}" font-family="{FONT_MONO}" font-size="11">@cael1127</text>
-  <text x="1208" y="82" text-anchor="end" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="10">findley.netlify.app</text>
+{chr(10).join(dots)}
+  <text x="72" y="58" fill="{t['ink']}" font-family="{FONT_UI}" font-size="15">Cael Findley</text>
+  <text x="72" y="78" fill="{t['accent']}" font-family="{FONT_MONO}" font-size="10" letter-spacing="2">BUILD WITH INTENT</text>
+  <text x="1208" y="58" text-anchor="end" fill="{t['muted']}" font-family="{FONT_MONO}" font-size="11">@cael1127</text>
+  <text x="1208" y="78" text-anchor="end" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="10">findley.netlify.app</text>
   </g>
+</svg>
+'''
+
+
+def wave_path(y: int = 28, amp: int = 9, cycles: float = 3.5) -> str:
+    pts = []
+    for i in range(0, 1281, 8):
+        tt = i / 1280 * cycles * 2 * pi
+        pts.append(f"{i},{y + amp * sin(tt):.1f}")
+    return "M" + " L".join(pts)
+
+
+def accent_bridge(theme: str) -> str:
+    t = THEMES[theme]
+    dots = []
+    for i in range(12):
+        x = 180 + i * 80
+        delay = i * 0.3
+        dots.append(f'''  <ellipse cx="{x}" cy="24" rx="3" ry="5" fill="{t['leaf']}" opacity="0.2">
+    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="{delay}s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="{delay}s" repeatCount="indefinite"/>
+  </ellipse>''')
+    return f'''<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 48" width="1280" height="48" role="img" aria-hidden="true">
+  <path d="M140,24 Q640,6 1140,24" fill="none" stroke="{t['accent2']}" stroke-width="1.1" opacity="0.35">
+    <animate attributeName="opacity" values="0.2;0.45;0.2" dur="5s" repeatCount="indefinite"/>
+  </path>
+{chr(10).join(dots)}
 </svg>
 '''
 
 
 def accent_wave(theme: str) -> str:
     t = THEMES[theme]
-    d = wave_path(28, 10, 4)
+    d = wave_path(28, 9, 3.5)
     return f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <path d="{d}" fill="none" stroke="{t['wave']}" stroke-width="1.4" opacity="0.55" stroke-dasharray="8 10">
-    <animate attributeName="stroke-dashoffset" from="0" to="-72" dur="6s" repeatCount="indefinite"/>
+  <path d="{d}" fill="none" stroke="{t['accent']}" stroke-width="1.4" opacity="0.55" stroke-dasharray="7 9">
+    <animate attributeName="stroke-dashoffset" from="0" to="-64" dur="6s" repeatCount="indefinite"/>
   </path>
 </svg>
 '''
 
 
 def accent_orbit(theme: str) -> str:
+    """Emerald gem with soft rings — renamed motif for accents."""
     t = THEMES[theme]
     return f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <ellipse cx="640" cy="28" rx="48" ry="16" fill="none" stroke="{t['orbit']}" stroke-width="1.2" opacity="0.55">
-    <animateTransform attributeName="transform" type="rotate" values="0 640 28; 360 640 28" dur="14s" repeatCount="indefinite"/>
-  </ellipse>
-  <ellipse cx="640" cy="28" rx="28" ry="28" fill="none" stroke="{t['accent2']}" stroke-width="1" opacity="0.35">
-    <animateTransform attributeName="transform" type="rotate" values="360 640 28; 0 640 28" dur="10s" repeatCount="indefinite"/>
-  </ellipse>
-  <circle cx="640" cy="28" r="4" fill="{t['accent']}">
-    <animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/>
+  <circle cx="640" cy="28" r="16" fill="none" stroke="{t['accent2']}" stroke-width="1" opacity="0.4">
+    <animate attributeName="r" values="12;20;12" dur="3.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0.1;0.4" dur="3.2s" repeatCount="indefinite"/>
   </circle>
-  <circle cx="688" cy="28" r="2.5" fill="{t['accent2']}">
-    <animateTransform attributeName="transform" type="rotate" values="0 640 28; 360 640 28" dur="14s" repeatCount="indefinite"/>
-  </circle>
+  <polygon points="640,14 654,28 640,42 626,28" fill="{t['accent']}" opacity="0.85">
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="2.8s" repeatCount="indefinite"/>
+  </polygon>
 </svg>
 '''
 
@@ -277,7 +313,7 @@ def accent_pulse(theme: str) -> str:
   <circle cx="640" cy="28" r="5" fill="{t['accent']}">
     <animate attributeName="r" values="4;7;4" dur="2.8s" repeatCount="indefinite"/>
   </circle>
-  <circle cx="640" cy="28" r="14" fill="none" stroke="{t['accent']}" stroke-width="1" opacity="0.4">
+  <circle cx="640" cy="28" r="14" fill="none" stroke="{t['leaf']}" stroke-width="1" opacity="0.4">
     <animate attributeName="r" values="10;20;10" dur="2.8s" repeatCount="indefinite"/>
     <animate attributeName="opacity" values="0.45;0.05;0.45" dur="2.8s" repeatCount="indefinite"/>
   </circle>
@@ -287,13 +323,13 @@ def accent_pulse(theme: str) -> str:
 
 def accent_constellation(theme: str) -> str:
     t = THEMES[theme]
-    hubs = [(520, 20), (580, 40), (640, 16), (700, 38), (760, 22), (620, 42)]
+    hubs = [(520, 22), (580, 38), (640, 16), (700, 36), (760, 20), (620, 40)]
     links = [(0, 1), (1, 2), (2, 3), (3, 4), (1, 5), (2, 5), (3, 5)]
     parts = []
     for i, (a, b) in enumerate(links):
         x1, y1 = hubs[a]
         x2, y2 = hubs[b]
-        parts.append(f'''  <line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{t['orbit']}" stroke-width="1" opacity="0.25">
+        parts.append(f'''  <line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{t['accent2']}" stroke-width="1" opacity="0.25">
     <animate attributeName="opacity" values="0.1;0.55;0.1" dur="3.5s" begin="{i * 0.3}s" repeatCount="indefinite"/>
   </line>''')
     for i, (x, y) in enumerate(hubs):
@@ -307,29 +343,7 @@ def accent_constellation(theme: str) -> str:
 '''
 
 
-def accent_bridge(theme: str) -> str:
-    """Soft star rain under hero — not school falling particles on a dashed line."""
-    t = THEMES[theme]
-    dots = []
-    for i in range(14):
-        x = 160 + i * 72
-        delay = i * 0.28
-        dots.append(f'''  <circle cx="{x}" cy="24" r="1.8" fill="{t['accent']}" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="{delay}s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="{delay}s" repeatCount="indefinite"/>
-  </circle>''')
-    return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 48" width="1280" height="48" role="img" aria-hidden="true">
-  <path d="M120,24 Q640,8 1160,24" fill="none" stroke="{t['wave']}" stroke-width="1" opacity="0.3">
-    <animate attributeName="opacity" values="0.15;0.4;0.15" dur="5s" repeatCount="indefinite"/>
-  </path>
-{chr(10).join(dots)}
-</svg>
-'''
-
-
 def accent_school(theme: str) -> str:
-    """Two orbiting hubs — personal ↔ school."""
     t = THEMES[theme]
     return f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
@@ -339,7 +353,7 @@ def accent_school(theme: str) -> str:
   <circle cx="720" cy="28" r="6" fill="#500000" opacity="0.85">
     <animate attributeName="cx" values="740;720;740" dur="5s" repeatCount="indefinite"/>
   </circle>
-  <path d="M570,28 Q640,8 710,28" fill="none" stroke="{t['orbit']}" stroke-width="1.3" stroke-dasharray="6 6" opacity="0.6">
+  <path d="M570,28 Q640,8 710,28" fill="none" stroke="{t['accent2']}" stroke-width="1.3" stroke-dasharray="6 6" opacity="0.6">
     <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="2s" repeatCount="indefinite"/>
   </path>
   <text x="560" y="50" text-anchor="middle" fill="{t['faint']}" font-family="{FONT_MONO}" font-size="8">@cael1127</text>
@@ -361,9 +375,6 @@ ACCENTS = {
 def main():
     accents_dir = OUT / "accents"
     accents_dir.mkdir(exist_ok=True)
-    # remove old school-clone accent names if present
-    for old in accents_dir.glob("*.svg"):
-        old.unlink()
     for theme in ("dark", "light"):
         (OUT / f"header-{theme}.svg").write_text(header_svg(theme), encoding="utf-8")
         (OUT / f"footer-{theme}.svg").write_text(footer_svg(theme), encoding="utf-8")
@@ -372,7 +383,7 @@ def main():
             path = accents_dir / f"{name}-{theme}.svg"
             path.write_text(fn(theme), encoding="utf-8")
             print(f"{path.name}: ok")
-        print(f"header-{theme}.svg: {len(header_svg(theme))} chars")
+        print(f"header-{theme}: {len(header_svg(theme))} chars")
 
 
 if __name__ == "__main__":

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <line x1="200" y1="28" x2="560" y2="28" stroke="#1e3a3a" stroke-width="1"/>
-  <line x1="720" y1="28" x2="1080" y2="28" stroke="#1e3a3a" stroke-width="1"/>
-  <circle cx="640" cy="28" r="5" fill="#5eead4">
+  <line x1="200" y1="28" x2="560" y2="28" stroke="#2d4a38" stroke-width="1"/>
+  <line x1="720" y1="28" x2="1080" y2="28" stroke="#2d4a38" stroke-width="1"/>
+  <circle cx="640" cy="28" r="5" fill="#86efac">
     <animate attributeName="r" values="4;7;4" dur="2.8s" repeatCount="indefinite"/>
   </circle>
-  <circle cx="640" cy="28" r="14" fill="none" stroke="#5eead4" stroke-width="1" opacity="0.4">
+  <circle cx="640" cy="28" r="14" fill="none" stroke="#4ade80" stroke-width="1" opacity="0.4">
     <animate attributeName="r" values="10;20;10" dur="2.8s" repeatCount="indefinite"/>
     <animate attributeName="opacity" values="0.45;0.05;0.45" dur="2.8s" repeatCount="indefinite"/>
   </circle>

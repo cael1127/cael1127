@@ -2,17 +2,17 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/header-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/header-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/header-light.svg" alt="Cael Findley — Software Developer" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/header-dark.svg?v=sage2">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/header-light.svg?v=sage2">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/header-light.svg?v=sage2" alt="Cael Findley — Software Developer" width="100%">
   </picture>
 </p>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-light.svg" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-dark.svg?v=sage2">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-light.svg?v=sage2">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/bridge-light.svg?v=sage2" alt="" width="100%">
   </picture>
 </p>
 
@@ -23,7 +23,7 @@
 
 <p align="center">
   <a href="https://findley.netlify.app/">
-    <img src="https://img.shields.io/badge/Portfolio-0f766e?style=for-the-badge&logo=netlify&logoColor=white" alt="Portfolio"/>
+    <img src="https://img.shields.io/badge/Portfolio-047857?style=for-the-badge&logo=netlify&logoColor=white" alt="Portfolio"/>
   </a>
   <a href="mailto:caelfindley@gmail.com">
     <img src="https://img.shields.io/badge/Email-0d1117?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/>
@@ -37,9 +37,9 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-light.svg" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-dark.svg?v=sage2">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-light.svg?v=sage2">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/wave-light.svg?v=sage2" alt="" width="100%">
   </picture>
 </p>
 
@@ -53,9 +53,9 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-light.svg" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-dark.svg?v=sage2">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-light.svg?v=sage2">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/orbit-light.svg?v=sage2" alt="" width="100%">
   </picture>
 </p>
 
@@ -78,9 +78,9 @@ Python · transformers · RAG
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-light.svg" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-dark.svg?v=sage2">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-light.svg?v=sage2">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/constellation-light.svg?v=sage2" alt="" width="100%">
   </picture>
 </p>
 
@@ -103,9 +103,9 @@ Python · transformers · RAG
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-light.svg" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-dark.svg?v=sage2">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-light.svg?v=sage2">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/school-light.svg?v=sage2" alt="" width="100%">
   </picture>
 </p>
 
@@ -122,9 +122,9 @@ School and academic context lives on **[@caelf-hub](https://github.com/caelf-hub
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-light.svg" alt="" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-dark.svg?v=sage2">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-light.svg?v=sage2">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/accents/pulse-light.svg?v=sage2" alt="" width="100%">
   </picture>
 </p>
 
@@ -137,22 +137,22 @@ School and academic context lives on **[@caelf-hub](https://github.com/caelf-hub
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api?username=cael1127&show_icons=true&include_all_commits=true&hide_border=true&bg_color=00000000&title_color=5eead4&icon_color=5eead4&text_color=9fb0c0&ring_color=5eead4">
-    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats-sigma-five.vercel.app/api?username=cael1127&show_icons=true&include_all_commits=true&hide_border=true&bg_color=00000000&title_color=0f766e&icon_color=0f766e&text_color=475569&ring_color=0f766e">
-    <img src="https://github-readme-stats-sigma-five.vercel.app/api?username=cael1127&show_icons=true&include_all_commits=true&hide_border=true&bg_color=00000000&title_color=0f766e&icon_color=0f766e&text_color=475569&ring_color=0f766e" alt="GitHub stats" height="165" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api?username=cael1127&show_icons=true&include_all_commits=true&hide_border=true&bg_color=00000000&title_color=86efac&icon_color=86efac&text_color=a8b5a8&ring_color=86efac">
+    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats-sigma-five.vercel.app/api?username=cael1127&show_icons=true&include_all_commits=true&hide_border=true&bg_color=00000000&title_color=047857&icon_color=047857&text_color=4a5c50&ring_color=047857">
+    <img src="https://github-readme-stats-sigma-five.vercel.app/api?username=cael1127&show_icons=true&include_all_commits=true&hide_border=true&bg_color=00000000&title_color=047857&icon_color=047857&text_color=4a5c50&ring_color=047857" alt="GitHub stats" height="165" />
   </picture>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=cael1127&layout=compact&langs_count=6&hide_border=true&bg_color=00000000&title_color=5eead4&text_color=9fb0c0">
-    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=cael1127&layout=compact&langs_count=6&hide_border=true&bg_color=00000000&title_color=0f766e&text_color=475569">
-    <img src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=cael1127&layout=compact&langs_count=6&hide_border=true&bg_color=00000000&title_color=0f766e&text_color=475569" alt="Top languages" height="165" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=cael1127&layout=compact&langs_count=6&hide_border=true&bg_color=00000000&title_color=86efac&text_color=a8b5a8">
+    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=cael1127&layout=compact&langs_count=6&hide_border=true&bg_color=00000000&title_color=047857&text_color=4a5c50">
+    <img src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=cael1127&layout=compact&langs_count=6&hide_border=true&bg_color=00000000&title_color=047857&text_color=4a5c50" alt="Top languages" height="165" />
   </picture>
 </p>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://streak-stats.demolab.com?user=cael1127&theme=dark&hide_border=true&ring=5eead4&fire=5eead4&currStreakLabel=5eead4&background=00000000">
-    <source media="(prefers-color-scheme: light)" srcset="https://streak-stats.demolab.com?user=cael1127&theme=default&hide_border=true&ring=0f766e&fire=0f766e&currStreakLabel=0f766e&background=00000000">
-    <img src="https://streak-stats.demolab.com?user=cael1127&theme=default&hide_border=true&ring=0f766e&fire=0f766e&currStreakLabel=0f766e&background=00000000" alt="GitHub streak" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://streak-stats.demolab.com?user=cael1127&theme=dark&hide_border=true&ring=86efac&fire=86efac&currStreakLabel=86efac&background=00000000">
+    <source media="(prefers-color-scheme: light)" srcset="https://streak-stats.demolab.com?user=cael1127&theme=default&hide_border=true&ring=047857&fire=047857&currStreakLabel=047857&background=00000000">
+    <img src="https://streak-stats.demolab.com?user=cael1127&theme=default&hide_border=true&ring=047857&fire=047857&currStreakLabel=047857&background=00000000" alt="GitHub streak" />
   </picture>
 </p>
 
@@ -160,8 +160,8 @@ School and academic context lives on **[@caelf-hub](https://github.com/caelf-hub
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-light.svg">
-    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-light.svg" alt="Footer" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-dark.svg?v=sage2">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-light.svg?v=sage2">
+    <img src="https://raw.githubusercontent.com/cael1127/cael1127/main/assets/footer-light.svg?v=sage2" alt="Footer" width="100%">
   </picture>
 </p>

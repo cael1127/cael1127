@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 56" width="1280" height="56" role="img" aria-hidden="true">
-  <ellipse cx="640" cy="28" rx="48" ry="16" fill="none" stroke="#0d9488" stroke-width="1.2" opacity="0.55">
-    <animateTransform attributeName="transform" type="rotate" values="0 640 28; 360 640 28" dur="14s" repeatCount="indefinite"/>
-  </ellipse>
-  <ellipse cx="640" cy="28" rx="28" ry="28" fill="none" stroke="#0891b2" stroke-width="1" opacity="0.35">
-    <animateTransform attributeName="transform" type="rotate" values="360 640 28; 0 640 28" dur="10s" repeatCount="indefinite"/>
-  </ellipse>
-  <circle cx="640" cy="28" r="4" fill="#0f766e">
-    <animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/>
+  <circle cx="640" cy="28" r="16" fill="none" stroke="#52796f" stroke-width="1" opacity="0.4">
+    <animate attributeName="r" values="12;20;12" dur="3.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0.1;0.4" dur="3.2s" repeatCount="indefinite"/>
   </circle>
-  <circle cx="688" cy="28" r="2.5" fill="#0891b2">
-    <animateTransform attributeName="transform" type="rotate" values="0 640 28; 360 640 28" dur="14s" repeatCount="indefinite"/>
-  </circle>
+  <polygon points="640,14 654,28 640,42 626,28" fill="#047857" opacity="0.85">
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="2.8s" repeatCount="indefinite"/>
+  </polygon>
 </svg>

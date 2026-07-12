@@ -1,62 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 48" width="1280" height="48" role="img" aria-hidden="true">
-  <path d="M120,24 Q640,8 1160,24" fill="none" stroke="#5eead4" stroke-width="1" opacity="0.3">
-    <animate attributeName="opacity" values="0.15;0.4;0.15" dur="5s" repeatCount="indefinite"/>
+  <path d="M140,24 Q640,6 1140,24" fill="none" stroke="#a3b18a" stroke-width="1.1" opacity="0.35">
+    <animate attributeName="opacity" values="0.2;0.45;0.2" dur="5s" repeatCount="indefinite"/>
   </path>
-  <circle cx="160" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="0.0s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="0.0s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="232" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="0.28s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="0.28s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="304" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="0.56s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="0.56s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="376" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="0.8400000000000001s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="0.8400000000000001s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="448" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="1.12s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="1.12s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="520" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="1.4000000000000001s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="1.4000000000000001s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="592" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="1.6800000000000002s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="1.6800000000000002s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="664" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="1.9600000000000002s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="1.9600000000000002s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="736" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="2.24s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="2.24s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="808" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="2.5200000000000005s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="2.5200000000000005s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="880" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="2.8000000000000003s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="2.8000000000000003s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="952" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="3.08s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="3.08s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="1024" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="3.3600000000000003s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="3.3600000000000003s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="1096" cy="24" r="1.8" fill="#5eead4" opacity="0.2">
-    <animate attributeName="cy" values="10;38;10" dur="4.2s" begin="3.6400000000000006s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0.1;0.75;0.1" dur="4.2s" begin="3.6400000000000006s" repeatCount="indefinite"/>
-  </circle>
+  <ellipse cx="180" cy="24" rx="3" ry="5" fill="#4ade80" opacity="0.2">
+    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="0.0s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="0.0s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="260" cy="24" rx="3" ry="5" fill="#4ade80" opacity="0.2">
+    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="0.3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="0.3s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="340" cy="24" rx="3" ry="5" fill="#4ade80" opacity="0.2">
+    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="0.6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="0.6s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="420" cy="24" rx="3" ry="5" fill="#4ade80" opacity="0.2">
+    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="500" cy="24" rx="3" ry="5" fill="#4ade80" opacity="0.2">
+    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="1.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="1.2s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="580" cy="24" rx="3" ry="5" fill="#4ade80" opacity="0.2">
+    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="1.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="1.5s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="660" cy="24" rx="3" ry="5" fill="#4ade80" opacity="0.2">
+    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="1.7999999999999998s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="1.7999999999999998s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="740" cy="24" rx="3" ry="5" fill="#4ade80" opacity="0.2">
+    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="2.1s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="2.1s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="820" cy="24" rx="3" ry="5" fill="#4ade80" opacity="0.2">
+    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="2.4s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="900" cy="24" rx="3" ry="5" fill="#4ade80" opacity="0.2">
+    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="2.6999999999999997s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="2.6999999999999997s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="980" cy="24" rx="3" ry="5" fill="#4ade80" opacity="0.2">
+    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="3.0s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="3.0s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="1060" cy="24" rx="3" ry="5" fill="#4ade80" opacity="0.2">
+    <animate attributeName="cy" values="12;36;12" dur="4.5s" begin="3.3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.65;0.1" dur="4.5s" begin="3.3s" repeatCount="indefinite"/>
+  </ellipse>
 </svg>
